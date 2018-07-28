@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+
+  
+ <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="stylesheets/style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+
+  <!-- tags input  -->
+   <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+    <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+
+  <!--xeditable-->
+   <script type="text/javascript" src="https://vitalets.github.io/angular-xeditable/dist/js/xeditable.js"></script>
+<link rel="stylesheet" type="text/css" href="https://vitalets.github.io/angular-xeditable/dist/css/xeditable.css">
+<body ng-app="admin" ng-controller="adminController">
+
+<script>
+var app = angular.module("admin", ['ngTagsInput']); 
+app.controller("adminController", function($scope,fileReader,$http) {
+   
+   // image code 
+    $scope.imageSrc = "";
+    $scope.loginShow = true;
+
+    
+    $scope.$on("fileProgress", function(e, progress) {
+    $scope.progress = progress.loaded / progress.total
+    });
+
+     $scope.login = function(argument) {
+      var data = {
+
+           userName:$scope.userName,
+           password:$scope.password
+
+      };
+
+        $http.post("/login" , data).success(function(res){
+          //console.log(res);
+
+            if(res == true){
+              
+              $scope.indexPageShow = true;
+              $scope.loginShow = false;
+               
+            }else{
+               $scope.message = "Oops! Username or Password is wrong. ";
+            }
+         
+    }).error(function(err){
+         console.log(err)
+    });
+
+
+       
+     }
+     $scope.tagsData = [];
+
+      $scope.addTag = function(){
+        $scope.tagsData.push($scope.tags);
+      }
+    $scope.addItem = function () {
+            
+
+
+    	  var data = {
+    	  	
+    	  	title : $scope.titleData,
+    			discription: $scope.discription,
+    			tags: $scope.tagsData,
+    			image : $scope.imageSrc,
+
+    	  }
+
+    console.log("passing theough data" ,data);
+
+    $http.post("/sendToDB" , data).success(function(res){
+          //console.log(res);
+
+            if(res.statusCode == 201){
+              $scope.message = res.statusMessage;
+              
+               reset();
+            }else{
+            	 $scope.message = "Oops! somthing went Wrong.";
+            }
+         
+    }).error(function(err){
+         console.log(err)
+    });
+
+
+
+
+  } 
+    function reset(){
+  	 $scope.titleData="";
+	 $scope.discription="";
+	 $scope.tags="";
+	 $scope.altKeyWords="";
+	 $scope.imageSrc="";
+	 
+
+  }
+    $scope.onSelect = function(){
+   	   // on change the removing the error message.
+      $scope.message="";
+   
+   }
+});
+
+
+  app.directive("ngFileSelect", function(fileReader, $timeout) {
+    return {
+      scope: {
+        ngModel: '='
+      },
+      link: function($scope, el) {
+        function getFile(file) {
+          fileReader.readAsDataUrl(file, $scope)
+            .then(function(result) {
+              $timeout(function() {
+                $scope.ngModel = result;
+              });
+            });
+        }
+
+        el.bind("change", function(e) {
+          var file = (e.srcElement || e.target).files[0];
+          getFile(file);
+        });
+      }
+    };
+  });
+
+app.factory("fileReader", function($q, $log) {
+  var onLoad = function(reader, deferred, scope) {
+    return function() {
+      scope.$apply(function() {
+        deferred.resolve(reader.result);
+      });
+    };
+  };
+
+  var onError = function(reader, deferred, scope) {
+    return function() {
+      scope.$apply(function() {
+        deferred.reject(reader.result);
+      });
+    };
+  };
+
+  var onProgress = function(reader, scope) {
+    return function(event) {
+      scope.$broadcast("fileProgress", {
+        total: event.total,
+        loaded: event.loaded
+      });
+    };
+  };
+
+  var getReader = function(deferred, scope) {
+    var reader = new FileReader();
+    reader.onload = onLoad(reader, deferred, scope);
+    reader.onerror = onError(reader, deferred, scope);
+    reader.onprogress = onProgress(reader, scope);
+    return reader;
+  };
+
+  var readAsDataURL = function(file, scope) {
+    var deferred = $q.defer();
+
+    var reader = getReader(deferred, scope);
+    reader.readAsDataURL(file);
+
+    return deferred.promise;
+  };
+
+  return {
+    readAsDataUrl: readAsDataURL
+  };
+});
+</script>
+
+
+
+
+    <div class="container" >
+        <span style="color: red"> {{message}}</span><br>
+
+        <div ng-show ="loginShow">
+          <h2>Login</h2>
+          <form ng-submit="login()">
+                <div class="form-group">
+                  <label for="text">Username</label>
+                  <input type="text" class="form-control"  ng-model ="userName" ng-chagne="onSelect()" required >
+                </div>
+                <div class="form-group">
+                  <label for="text">Password</label>
+                  <input type="password" class="form-control"  ng-model ="password" required>
+                </div>
+
+                 <button type="submit" class="btn btn-default">Login</button>
+          </form>
+
+        </div>
+
+<div ng-show ="indexPageShow">
+  <h2>Upload Image</h2>
+  <form ng-submit="addItem()">
+    <div class="form-group">
+      <label for="text">Title:</label>
+      <input type="text" class="form-control"  ng-model ="titleData" ng-chagne="onSelect()" required >
+    </div>
+    <div class="form-group">
+      <label for="text">Description:</label>
+      <input type="text" class="form-control"  ng-model ="discription">
+    </div>
+      <div class="form-group">
+      <label for="text">Tags:</label>
+      <tags-input ng-model="tags"></tags-input><button type="button" ng-click="addTag()">Add Tag</button>
+    </div>
+      <div class="form-group">
+      <label for="text"> Image:</label>
+     <input type="file" ng-file-select="onFileSelect($files)" ng-model="imageSrc" required>
+    </div>
+    
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+
+</div>
+    
+  
+
+</body>
+</html>
