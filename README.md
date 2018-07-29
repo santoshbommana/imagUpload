@@ -45,6 +45,7 @@
     -- email
     -- Image load Time
     -- if email send  dot send re- agian 
+    -- need display the images in the portfolio
     
    task completed 
       -- given admin blog / allImage / contact / special image 
