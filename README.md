@@ -15,13 +15,13 @@
      -- automatic sharing option once upload one from  admin console.(facebook / instagram ).
      -- admin page login/from node  -- user name  swetha / admin -- done 
      
-     ---------------------------------------------------------------------------------------------------------------
+     ----------------------------------------------------------------------------------------------------------
      -- mean while give the  manula share option like jssor slider SS option  -- first 
 		 -- alignment in the index page  --- first complete 
       
      -- index page like studio ful slider  once click on the image that shou be redirect to the another page with display like http://www.vidyavox.com/blog/  -- done 
         +  share/ views/ comments /like  for the particluar picture. 
-     ---------------------------------------------------------------------------------------------------------------
+     ----------------------------------------------------------------------------------------------------------
 
           -- Compitators how they build there sites for menu items.
           -- Defult water marks while uploading the image from  admin console 
@@ -38,6 +38,20 @@
       youtube.com/channel/UCQ_KGFVuAPZojMniJbBdRdQ
       swethagraphy@gmail.com
   
+  
+  pending works(28-07-2018)
+    -- share option 
+    -- water mark 
+    -- email
+    -- Image load Time
+    -- if email send  dot send re- agian 
+    
+   task completed 
+      -- given admin blog / allImage / contact / special image 
+         
+      
+        
+     
             
  
 

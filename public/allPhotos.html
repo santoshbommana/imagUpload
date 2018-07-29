@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- google seo verification tag -->
-    <meta name="google-site-verification" content="E0GgqU7vDIuQZrIGYonX0KNUEIR8xgZVoOXkGud_FZk" />
+    <meta name="google-site-verification" content="" />
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
    
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
@@ -29,7 +29,7 @@
   <script src="/controllers/adminPage.js"></script>
 
     <!-- Title  -->
-    <title>Studio - Creative Photography Template | Home</title>
+    <title>Studio - Creative Photography Template | ALL Images</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -43,16 +43,15 @@
 
 </head>
 
-<body ng-controller = "HomePageController">
+<body ng-controller = "AllImagePageController">
 
 
-                      
                   <section class="welcome-area"  >
                 <span ng-repeat="x in data track by $index"  >
                       
               
-                      Title:{{x.title}}<br>
-                      Discription:{{x.discription}}<br>
+                      {{x.title}}<br>
+                      {{x.discription}}<br>
                      <img style="width:60%;height: 80%; "src="{{x.image}}"  alt="{{x.tags}}" ng-mouseover="select($index)" /><br>           
                          
               </span>

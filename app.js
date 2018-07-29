@@ -44,7 +44,7 @@ var db = require('./public/dbConncetions/db.js');
 
 
 app.post('/sendToDB',function(req,res){ 
-    
+	  
     db.storeImageData(req.body,function(err,result){
             //console.log(result);
             res.send(result);    
@@ -60,6 +60,40 @@ app.get("/getAllRecords",function(req,res){
             res.send(result);       
      });
 });
+app.get("/allImagesDb",function(req,res){
+
+    db.getAllImagesRecords(function(err,result){
+            //console.log(result);
+            res.send(result);       
+     });
+});
+
+app.get("/getBlogDb",function(req,res){
+
+    db.getBlogRecords(function(err,result){
+            //console.log(result);
+            res.send(result);       
+     });
+});
+app.get("/getContactDb",function(req,res){
+
+    db.getContactRecords(function(err,result){
+            //console.log(result);
+            res.send(result);       
+     });
+});
+
+
+app.post('/sendContact',function(req,res){ 
+	   //console.log("req",req.body);
+    db.storeImageData(req.body,function(err,result){
+            //console.log(result);
+            res.send(result);    
+    });
+
+});
+
+
 app.post("/login",function(req,res){
     
      var responseSendBack = (req.body.userName === "swetha" && req.body.password === "admin") ?  res.send(true): res.send(false);
@@ -68,8 +102,8 @@ app.post("/login",function(req,res){
 });
 
 // start server on the specified port and binding host
-app.listen(80, '202.53.87.46', function() {
-  //app.listen(3000, 'localhost', function() { // test locally
+//app.listen(80, '202.53.87.46', function() {
+  app.listen(3000, 'localhost', function() { // test locally
   // print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
 });

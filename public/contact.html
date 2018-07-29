@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="studio">
 
 <head>
     <meta charset="UTF-8">
@@ -20,10 +20,27 @@
 
     <!-- Responsive CSS -->
     <link href="css/responsive.css" rel="stylesheet">
+      
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
+  <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
+
+
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+
+
+      <!-- APP controllers -->
+  <script src="/controllers/appcontroller.js"></script>
+  <script src="/controllers/homepagecontroller.js"></script>
+  <script src="/controllers/adminPage.js"></script>
+    
 
 </head>
 
-<body>
+<body ng-controller ="contactPageController">
     <!-- Preloader -->
     <div id="preloader">
         <div class="showbox">
@@ -33,16 +50,7 @@
                 </svg>
             </div>
         </div>
-        <div class="questions-area text-center">
-            <p>Did you know?</p>
-            <ul>
-                <li>The largest photography competition is 353,768 entries.</li>
-                <li>Photography is the toughest profession in the world.</li>
-                <li>The world’s largest photo album by dimensions was 13 ft 11.5 in x 17 ft.</li>
-                <li>The world’s largest photo mosaic featured 176,175 pictures.</li>
-                <li>The world’s largest camera lens was a 5200mm lens attached to a canon.</li>
-            </ul>
-        </div>
+
     </div>
 
     <!-- Gradient Background Overlay -->
@@ -66,17 +74,6 @@
                                     <li class="nav-item active">
                                         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                                     </li>
-                                  <!--   <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="index.html">Home</a>
-                                            <a class="dropdown-item" href="about-me.html">About</a>
-                                            <a class="dropdown-item" href="portfolio.html">Portfolio</a>
-                                            <a class="dropdown-item" href="blog.html">Blog</a>
-                                            <a class="dropdown-item" href="contact.html">Contact</a>
-                                            <a class="dropdown-item" href="elements.html">Elements</a>
-                                        </div>
-                                    </li> -->
                                     <li class="nav-item">
                                         <a class="nav-link" href="about-me.html">About</a>
                                     </li>
@@ -129,28 +126,31 @@
                     <div class="contact-heading-text text-center mb-100">
                         <span></span>
                         <h2>Please get in touch</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lectus eu felis semper finibus ac eget ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vulputate id justo quis facilisis. Vestibulum id orci ligula. Sed tempor, nunc ut sodales pulvinar, mauris ante euismod magna, at elementum lectus leo sed enim. Praesent dictum suscipit tincidunt. Nulla facilisi. Aenean in mollis orci. Ut interdum vulputate ante a egestas. Pellentesque varius purus malesuada arcu semper vehicula. </p>
-                    </div>
+                     </div>
                 </div>
                 <!-- Contact Form Area -->
                 <div class="col-10">
                     <div class="contact-form-area">
-                        <form action="#" method="post">
+                        <form ng-submit="submit()">
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" ng-model="name" name="name" id="name" placeholder="Your Name" ng-change="onSelect()" requried>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" ng-model="email" name="email" id="email" placeholder="Your Email" requried>
+                                </div>
+                                  <div class="col-12 col-md-4">
+                                    <input type="number" class="form-control" ng-model="phone" name="phone" id="phone" placeholder="Your Phone" >
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" ng-model="subject" name="subject" id="subject" placeholder="Subject" requried>
                                 </div>
                                 <div class="col-12">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                    <textarea name="message" class="form-control"  ng-model="message" id="message" cols="30" rows="10" placeholder="Message" requried ></textarea>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <button type="submit" class="btn studio-btn mt-3"><img src="img/core-img/logo-icon.png" alt=""> Send</button>
+                                    <button type="submit" class="btn studio-btn mt-3"><img ng-show="imageloader" src="img/core-img/logo-icon.png" alt=""> Send</button><br>
+                                       {{successMessage}}
                                 </div>
                             </div>
                         </form>

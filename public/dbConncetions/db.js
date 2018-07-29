@@ -6,18 +6,40 @@ var MongoClient = mongodb.MongoClient;
 
 var DB_HOST = "mongodb://127.0.0.1:27017/",
     DB_NAME ="studio",
-    DB_COLLECTION ="studioImages";
+    DB_HOME_PAGE_COLLECTION ="studioImages",
+    DB_ALL_IMAGES_COLLECTION ="allImages",
+    DB_BLOG_COLLECTION = 'blog',
+    DB_CONTACT_COLLECTION ="contact",
+    DATA,SOTRE_COLLECTION;	
+   
 
 
 module.exports={
      
                     
-	storeImageData:function (data,callback) {
-     
-        //console.log("HITED");
-        createNewDocument(data, DB_NAME,DB_COLLECTION, function (err, result) {
+	storeImageData:function (storeData,callback) {
+		   
+		   if(storeData.type == "specialImages"){
+			   DATA = storeData;
+			   SOTRE_COLLECTION =DB_HOME_PAGE_COLLECTION;
+			   }
+		   else if (storeData.type == "allImages"){
+			   DATA = storeData;
+			   SOTRE_COLLECTION =DB_ALL_IMAGES_COLLECTION;
+			   
+		   }
+		   else if(storeData.type == "contact"){
+			   DATA = storeData;
+			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;   
+		   }
+		   else{
+			   DATA = storeData;
+			   SOTRE_COLLECTION =DB_BLOG_COLLECTION;
+		   }
+    
+        createNewDocument(DATA, DB_NAME,SOTRE_COLLECTION, function (err, result) {
             if (err) {
-                callback("Failed to create doc  : " + DB_COLLECTION);
+                callback("Failed to create doc  : " + SOTRE_COLLECTION);
             }
             else {
                 //console.log("result",result);
@@ -26,16 +48,44 @@ module.exports={
         });
     },
     getAllData: function (callback) {
-        getAllDocsFromDatabase(DB_NAME,DB_COLLECTION, function (err, result) {
+        getAllDocsFromDatabase(DB_NAME,DB_HOME_PAGE_COLLECTION, function (err, result) {
             if (err) {
-                callback("Failed to get all the documents from database: " + DB_NAME +  DB_COLLECTION);
+                callback("Failed to get home page(special Records) the documents from database: " + DB_NAME +  DB_HOME_PAGE_COLLECTION);
             }
             else {
                 callback(null, result);
             }
         });
     },
+    getAllImagesRecords:function (callback) {
+        getAllDocsFromDatabase(DB_NAME,DB_ALL_IMAGES_COLLECTION, function (err, result) {
+            if (err) {
+                callback("Failed to get all images the documents from database: " + DB_NAME +  DB_ALL_IMAGES_COLLECTION);
+            }
+            else {
+                callback(null, result);
+            }
+        });
+    },
+    getBlogRecords:function (callback) {
+        getAllDocsFromDatabase(DB_NAME,DB_BLOG_COLLECTION, function (err, result) {
+            if (err) {
+                callback("Failed to get blog records the documents from database: " + DB_NAME +  DB_BLOG_COLLECTION )           }
+            else {
+                callback(null, result);
+            }
+        });
+    },
 	
+    getContactRecords:function (callback) {
+        getAllDocsFromDatabase(DB_NAME,DB_CONTACT_COLLECTION, function (err, result) {
+            if (err) {
+                callback("Failed to get contact records the documents from database: " + DB_NAME +  DB_CONTACT_COLLECTION )           }
+            else {
+                callback(null, result);
+            }
+        });
+    },
 
 };
 
