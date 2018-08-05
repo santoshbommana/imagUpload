@@ -2,15 +2,22 @@ mainapp.controller(
 		'HomePageController',
 		[ '$scope', '$global', '$location', '$http', '$filter', '$window',
 				function($scope, $global, $location, $http, $filter, $window) {
-			   console.log("tet");
+			  
 					// index is the home page
 					loadData();
 					function loadData() {
+						   $scope.imagePath = [];
 						
 						$http.get('/getAllRecords').success(function(res) {
-
-							console.log("res", res.body);
-							$scope.data = res.body;
+                                  
+							    
+							 for(var i = 0;i<res.body.length;i++){
+						     $scope.imagePath.push(res.body[i].image.path.slice(6));
+						     console.log($scope.imagePath);
+							 }
+							 
+							 $scope.data = res.body;
+							
 
 						}).error(function(err) {
 
@@ -51,6 +58,7 @@ mainapp.controller(
 						[ '$scope', '$global', '$location', '$http', '$filter', '$window',
 								function($scope, $global, $location, $http, $filter, $window) {
                                      console.log("blog");
+                                     
 									// index is the home page
 									loadData();
 									function loadData() {
