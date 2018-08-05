@@ -8,14 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="stylesheets/style.css">
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
 <script
@@ -24,279 +19,259 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<!-- tags input  -->
+
 <link rel="stylesheet"
 	href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
 <script
 	src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
 
-<!--xeditable-->
-<script type="text/javascript"
-	src="https://vitalets.github.io/angular-xeditable/dist/js/xeditable.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="https://vitalets.github.io/angular-xeditable/dist/css/xeditable.css">
 <body ng-app="admin" ng-controller="adminController">
 
 	<script>
-var app = angular.module("admin", ['ngTagsInput']); 
-app.controller("adminController", function($scope,fileReader,$http,$window) {
-   
-   // image code 
-   
-    $scope.imageSrc = "";
-    $scope.loginShow = true;
+		var app = angular.module("admin", [ 'ngTagsInput' ]);
+		app
+				.controller(
+						"adminController",
+						function($scope, $http, $window) {
 
-    
-    $scope.$on("fileProgress", function(e, progress) {
-    $scope.progress = progress.loaded / progress.total
-    });
-    
-     // login 
-     $scope.login = function(argument) {
-      var data = {
+							// image code 
 
-           userName:$scope.userName,
-           password:$scope.password
+							$scope.imageSrc = "";
+							$scope.loginShow = true;
 
-      };
+							$scope.$on("fileProgress", function(e, progress) {
+								$scope.progress = progress.loaded
+										/ progress.total
+							});
 
-        $http.post("/login" , data).success(function(res){
-          //console.log(res);
+							// login 
+							$scope.login = function(argument) {
+								var data = {
 
-            if(res == true){
-              
-              $scope.loginShow = false;
-              $scope.menuButtons = true;
-               
-            }else{
-               $scope.message = "Oops! Username or Password is wrong. ";
-            }
-         
-    }).error(function(err){
-         console.log(err)
-    });
-       
-     }
-     // functions For Display buttons 
-      
-     
-      $scope.specialImages = function(){
-    	   $scope.message="";
-    	   $scope.indexPageShow = true;
-    	   $scope.allImages = false;
-    	   $scope.blog = false;
-    	   $scope.contact = false;
-      };
-      $scope.allImagesFun = function(){
-    	  $scope.message="";
-    	  $scope.indexPageShow = false;
-   	      $scope.allImages = true;
-   	      $scope.blog = false;
-   	      $scope.contact = false;
-    	  
-      };
-      $scope.blogFun = function(){
-    	  $scope.message="";
-    	  $scope.indexPageShow = false;
-   	      $scope.allImages = false;
-   	      $scope.blog = true;
-   	      $scope.contact = false;
-    	  
-      };
-      $scope.contactFun = function(){
-    	  $scope.message="";
-    	  $scope.indexPageShow = false;
-   	      $scope.allImages = false;
-   	      $scope.blog = false;
-   	      $scope.contact = true;
-   	      
-   	   $http.get("/getContactDb").success(function(res){
-           console.log(res);
+									userName : $scope.userName,
+									password : $scope.password
 
-             if(res.body !== []){
-               
-                $scope.data = res.body;
-                
-             }else{
-                $scope.message = "Oops! no records are found. ";
-             }
-          
-     }).error(function(err){
-          console.log(err)
-     });
-     	 
-      };
-       
-     $scope.tagsData = [];
+								};
 
-      $scope.addTag = function(){
-        $scope.tagsData.push($scope.tags);
-      }
-    $scope.addItem = function () {
-     // home page only special Items. 
-    
-  	  var data = {
-  	  	
-  	  	    title : $scope.titleData,
-  			discription: $scope.discription,
-  			tags: $scope.tagsData,
-  			image : $scope.imageSrc,
-  			type:"specialImages"
+								$http
+										.post("/login", data)
+										.success(
+												function(res) {
+													//console.log(res);
 
-  	  }
-  	  sendDataTODb(data);           
-    };
-    $scope.addAllImage = function(){
-  
-    	 var data = {
-    		  	  	
-    	  	  	    title : $scope.titleData,
-    	  			discription: $scope.discription,
-    	  			tags: $scope.tagsData,
-    	  			image : $scope.imageSrc,
-    	  			type:"allImages"
+													if (res == true) {
 
-    	  	  }
-    	  	  sendDataTODb(data); 
-    	
-    };
-    $scope.addBlog = function(){
-    	
-    	 var data = {
-    		  	  	
-    	  	  	    title : $scope.titleData,
-    	  			discription: $scope.discription,
-    	  			image : $scope.imageSrc,
-    	  			writenBy:$scope.writenBy,
-    				date:$scope.date,
-    	  			type:"blog"
+														$scope.loginShow = false;
+														$scope.menuButtons = true;
 
-    	  	  }
-    	  	  sendDataTODb(data); 
-    };
+													} else {
+														$scope.message = "Oops! Username or Password is wrong. ";
+													}
 
-    function sendDataTODb(data){
-    $http.post("/sendToDB" , data).success(function(res){
-          //console.log(res);
+												}).error(function(err) {
+											console.log(err)
+										});
 
-            if(res.statusCode == 201){
-              $scope.message = res.statusMessage;
-              
-               reset();
-            }else{
-            	 $scope.message = "Oops! somthing went Wrong.";
-            }
-         
-    }).error(function(err){
-         console.log(err)
-    });
+							}
+							// functions For Display buttons 
 
-  } 
-    function reset(){
-  	 $scope.titleData="";
-	 $scope.discription="";
-	 $scope.tags="";
-	 $scope.altKeyWords="";
-	 $scope.imageSrc="";
-	 
+							$scope.specialImages = function() {
+								$scope.message = "";
+								$scope.indexPageShow = true;
+								$scope.allImages = false;
+								$scope.blog = false;
+								$scope.contact = false;
+							};
+							$scope.allImagesFun = function() {
 
-  }
-    $scope.onSelect = function(){
-   	   // on change the removing the error message.
-      $scope.message="";
-   
-   };
-   // send email 
-   $scope.sendReply = function(id){
-	   for (var i=0;i<$scope.data.length;i++){
-		    if($scope.data[i]._id == id ){
-		    	 console.log($scope.data[i].email); 
-		    var url = 'https://mail.google.com/mail/u/0/?view=cm&fs=1&to=' + $scope.data[i].email + 
-		    		              '&su=SUBJECT&body=BODY&tf=1';	 
-		     $window.open(url); 	 
-		    }
-	   }
-   };
-    
-});
+								$scope.message = "";
+								$scope.indexPageShow = false;
+								$scope.allImages = true;
+								$scope.blog = false;
+								$scope.contact = false;
 
+							};
+							$scope.blogFun = function() {
+								$scope.message = "";
+								$scope.indexPageShow = false;
+								$scope.allImages = false;
+								$scope.blog = true;
+								$scope.contact = false;
 
-  app.directive("ngFileSelect", function(fileReader, $timeout) {
-    return {
-      scope: {
-        ngModel: '='
-      },
-      link: function($scope, el) {
-        function getFile(file) {
-          fileReader.readAsDataUrl(file, $scope)
-            .then(function(result) {
-              $timeout(function() {
-                $scope.ngModel = result;
-              });
-            });
-        }
+							};
+							$scope.contactFun = function() {
+								$scope.message = "";
+								$scope.indexPageShow = false;
+								$scope.allImages = false;
+								$scope.blog = false;
+								$scope.contact = true;
 
-        el.bind("change", function(e) {
-          var file = (e.srcElement || e.target).files[0];
-          getFile(file);
-        });
-      }
-    };
-  });
+								$http
+										.get("/getContactDb")
+										.success(
+												function(res) {
+													console.log(res);
 
-app.factory("fileReader", function($q, $log) {
-  var onLoad = function(reader, deferred, scope) {
-    return function() {
-      scope.$apply(function() {
-        deferred.resolve(reader.result);
-      });
-    };
-  };
+													if (res.body !== []) {
 
-  var onError = function(reader, deferred, scope) {
-    return function() {
-      scope.$apply(function() {
-        deferred.reject(reader.result);
-      });
-    };
-  };
+														$scope.data = res.body;
 
-  var onProgress = function(reader, scope) {
-    return function(event) {
-      scope.$broadcast("fileProgress", {
-        total: event.total,
-        loaded: event.loaded
-      });
-    };
-  };
+													} else {
+														$scope.message = "Oops! no records are found. ";
+													}
 
-  var getReader = function(deferred, scope) {
-    var reader = new FileReader();
-    reader.onload = onLoad(reader, deferred, scope);
-    reader.onerror = onError(reader, deferred, scope);
-    reader.onprogress = onProgress(reader, scope);
-    return reader;
-  };
+												}).error(function(err) {
+											console.log(err)
+										});
 
-  var readAsDataURL = function(file, scope) {
-    var deferred = $q.defer();
+							};
 
-    var reader = getReader(deferred, scope);
-    reader.readAsDataURL(file);
+							$scope.tagsData = [];
+							var data;
 
-    return deferred.promise;
-  };
+							$scope.addTag = function() {
+								$scope.tagsData.push($scope.tags);
+							}
+							$scope.addItem = function() {
+								// home page only special Items. 
 
-  return {
-    readAsDataUrl: readAsDataURL
-  };
-});
-</script>
+								 data = {
 
+									title : $scope.titleData,
+									discription : $scope.discription,
+									tags : $scope.tagsData,
+									type : "specialImages"
 
+								}; 
+								var fd = new FormData();
+								console.log(fd.append('image',  $scope.specialpic));
+								imageUpload(fd);
+							};
+							$scope.addAllImage = function() {
 
+								 data = {
+
+									title : $scope.titleData,
+									discription : $scope.discription,
+									tags : $scope.tagsData,
+									type : "allImages"
+
+								}
+								 var fd = new FormData();
+									console.log(fd.append('image',  $scope.allImages));
+									imageUpload(fd);
+								
+
+							};
+							$scope.addBlog = function() {
+
+								 data = {
+
+									title : $scope.titleData,
+									discription : $scope.discription,
+									writenBy : $scope.writenBy,
+									date : $scope.date,
+									type : "blog"
+
+								}
+								 var fd = new FormData();
+									console.log(fd.append('image',  $scope.blogPic));
+									imageUpload(fd);
+							};
+							function imageUpload(fd) {
+								$http.post("/upload", fd, {
+									transformRequest : angular.identity,
+									headers : {
+										'Content-Type' : undefined
+									}
+								}).success(function(res) {
+									console.log('upload res', res);
+									if (res === "Created") {
+										sendDataTODb(data);
+									} else {
+										//$scope.message = "Oops.! somthing went wrong refresh. try again."; 
+									}
+								}).error(function(err) {
+									console.log(err);
+								});
+								
+
+							}
+
+							function sendDataTODb(data) {
+								$http
+										.post("/sendToDB", data)
+										.success(
+												function(res) {
+													//console.log(res);
+
+													if (res.statusCode == 201) {
+														$scope.message = res.statusMessage;
+
+														reset();
+													} else {
+														$scope.message = "Oops! somthing went Wrong.";
+													}
+
+												}).error(function(err) {
+											console.log(err)
+										});
+
+							};
+							
+							function reset() {
+								$scope.titleData = "";
+								$scope.discription = "";
+								$scope.tags = "";
+								$scope.altKeyWords = "";
+								$scope.imageSrc = "";
+
+							};
+							$scope.onSelect = function() {
+								// on change the removing the error message.
+								$scope.message = "";
+
+							};
+							// send email 
+							$scope.sendReply = function(id) {
+								for (var i = 0; i < $scope.data.length; i++) {
+									if ($scope.data[i]._id == id) {
+										console.log($scope.data[i].email);
+										var url = 'https://mail.google.com/mail/u/0/?view=cm&fs=1&to='
+												+ $scope.data[i].email
+												+ '&su=SUBJECT&body=BODY&tf=1';
+										$window.open(url);
+									}
+								}
+							};
+
+						}).directive('fileModel',
+								[ '$parse', function($parse) {
+									return {
+										restrict : 'A',
+										link : function(scope, element, attrs) {
+											var model = $parse(attrs.fileModel);
+											var modelSetter = model.assign;
+
+											element.bind('change', function() {
+												scope.$apply(function() {
+													modelSetter(scope, element[0].files[0]);
+												});
+											});
+										}
+									};
+								} ]);
+
+		
+	</script>
 
 	<div class="container">
 		<span style="color: red"> {{message}}</span><br>
@@ -319,127 +294,161 @@ app.factory("fileReader", function($q, $log) {
 			</form>
 
 		</div>
+	</div>
 
-		<div align="center" ng-show="menuButtons">
-			<button type="button" ng-click="specialImages()"
-				class="btn btn-success">Home Page</button>
-			<button type="button" ng-click="allImagesFun()"
-				class="btn btn-primary">All Images</button>
-			<button type="button" ng-click="blogFun()" class="btn btn-danger">Blog</button>
-			<button type="button" ng-click="contactFun()" class="btn btn-warning">Contact</button>
-		</div>
+	<div class="container" align="center" ng-show="menuButtons">
+		<button type="button" ng-click="specialImages()"
+			class="btn btn-success">Home Page</button>
+		<button type="button" ng-click="allImagesFun()"
+			class="btn btn-primary">All Images</button>
+		<button type="button" ng-click="blogFun()" class="btn btn-danger">Blog</button>
+		<button type="button" ng-click="contactFun()" class="btn btn-warning">Contact</button>
+	</div>
 
+	<div ng-show="indexPageShow" class="container">
+		<h2>Upload Special Image</h2>
+		<form ng-submit="addItem()" class="col s12">
+			<div class="row">
 
-		<div ng-show="indexPageShow">
-			<h2>Upload Special Image</h2>
-			<form ng-submit="addItem()">
-				<div class="form-group">
-					<label for="text">Title:</label> <input type="text"
-						class="form-control" ng-model="titleData" required>
+				<div class="input-field col s6">
+					<label for="text">Title:</label> 
+					<input type="text"
+						ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
-				<div class="form-group">
+				<div class="input-field col s6">
 					<label for="text">Description:</label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
-				<div class="form-group">
+				<div class="input-field col s6">
 					<label for="text">Tags:</label>
 					<tags-input ng-model="tags"></tags-input>
 					<button type="button" ng-click="addTag()">Add Tag</button>
 				</div>
-				<div class="form-group">
-					<label for="text"> Image:</label> <input type="file"
-						ng-file-select="onFileSelect($files)" ng-model="imageSrc" required>
+				<div class="input-field col s6">
+					<div class="file-field input-field">
+						<div class="btn waves-effect grey">
+							<lable>Special Picture</lable>
+							<input name="myImage" type="file" file-model="specialpic"
+								id="photo" required>
+						</div>
+						<!-- <div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>  -->
+					</div>
 				</div>
+			</div>
 
-				<button type="submit" class="btn btn-success">Submit</button>
-			</form>
-		</div>
+			<button type="submit" class="btn btn-success">Submit</button>
+		</form>
+	</div>
 
 
-		<div ng-show="allImages">
-			<h2>Upload All Image</h2>
-			<form ng-submit="addAllImage()">
-				<div class="form-group">
+	<div ng-show="allImages" class="container">
+		<h2>Upload All Image</h2>
+		<form ng-submit="addAllImage()" class="col s12">
+			<div class="row">
+				<div class="input-field col s6">
 					<label for="text">Title:</label> <input type="text"
-						class="form-control" ng-model="titleData" required>
+						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
-				<div class="form-group">
+				<div class="input-field col s6">
 					<label for="text">Description:</label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
-				<div class="form-group">
+				<div class="input-field col s6">
 					<label for="text">Tags:</label>
 					<tags-input ng-model="tags"></tags-input>
 					<button type="button" ng-click="addTag()">Add Tag</button>
 				</div>
-				<div class="form-group">
-					<label for="text"> Image:</label> <input type="file"
-						ng-file-select="onFileSelect($files)" ng-model="imageSrc" required>
+				<div class="input-field col s6">
+					<div class="file-field input-field">
+						<div class="btn waves-effect grey">
+							<lable>Upload All Image<span style="color: red;">*</span></lable>
+							<input name="myImage" type="file" file-model="allImages"
+								id="photo" required>
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+					</div>
 				</div>
+			</div>
 
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
-		</div>
-		<!-- Blog -->
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+	<!-- Blog -->
 
-		<div ng-show="blog">
-			<h2>Upload Blog</h2>
-			<form ng-submit="addBlog()">
-				<div class="form-group">
+	<div ng-show="blog" class="container">
+		<h2>Upload Blog</h2>
+		<form ng-submit="addBlog()" class="col s12">
+			<div class="row">
+				<div class="input-field col s6">
 					<label for="text">Title:</label> <input type="text"
-						class="form-control" ng-model="titleData" required>
+						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
-				<div class="form-group">
+				<div class="input-field col s6">
 					<label for="text">Description:</label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
-				<div class="form-group">
-					<label for="text"> Image:</label> <input type="file"
-						ng-file-select="onFileSelect($files)" ng-model="imageSrc" required>
+				<div class="input-field col s6">
+					<div class="file-field input-field">
+						<div class="btn waves-effect grey">
+							<lable>Blog Picture</lable>
+							<input name="myImage" type="file" file-model="blogPic" id="photo"
+								required>
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+					</div>
 				</div>
-                <div class="form-group">
-					<label for="text"> Date:</label> 
+				<div class="input-field col s6">
+
 					<input type="date" ng-model="date" requried>
-				</div> 
-				 <div class="form-group">
-					<label for="text"> Writen By:</label> 
-					<input type="text" ng-model="writenBy" requried>
 				</div>
-			
-				<button type="submit" class="btn btn-danger">Submit</button>
-			</form>
-		</div>
-
-		<!-- Display contact List  -->
-
-
-		<div ng-show="contact">
-			<h2>Contact List</h2>
-			<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Message</th>
-      <th scope="col">Answer</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat=" x in data">
-      <th scope="row">1</th>
-      <td>{{x.name}}</td>
-      <td>{{x.email}}</td>
-      <td>{{x.phone}}</td>
-      <td>{{x.subject}}</td>
-      <td>{{x.message}}</td>
-      <td><button type="button" ng-click="sendReply(x._id)"><i class="fa fa-paper-plane" aria-hidden="true"></i></button></td>
-    </tr>
-  </tbody>
-</table>
+				<div class="input-field col s6">
+					<label for="text"> Writen By:</label> <input type="text"
+						ng-model="writenBy" requried>
 				</div>
-		</div>
+			</div>
+
+			<button type="submit" class="btn btn-danger">Submit</button>
+		</form>
+	</div>
+
+	<!-- Display contact List  -->
+
+
+	<div ng-show="contact" class="container">
+		<h2>Contact List</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Subject</th>
+					<th scope="col">Message</th>
+					<th scope="col">Answer</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat=" x in data">
+					<th scope="row">1</th>
+					<td>{{x.name}}</td>
+					<td>{{x.email}}</td>
+					<td>{{x.phone}}</td>
+					<td>{{x.subject}}</td>
+					<td>{{x.message}}</td>
+					<td><button type="button" ng-click="sendReply(x._id)">
+							<i class="fa fa-paper-plane" aria-hidden="true"></i>
+						</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</div>
 </body>
 </html>

@@ -11,6 +11,8 @@ var express = require('express');
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
+var multer = require('multer'),
+    path = require('path');
 
 // create a new express server
 var app = express();
@@ -33,7 +35,7 @@ app.use(function(req, res, next) {
 });
 
 
-// this for imge  updalod code not more than 50 MB 
+// this for image  updalod code not more than 50 MB 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
@@ -43,10 +45,75 @@ app.use(bodyParser.json());
 var db = require('./public/dbConncetions/db.js');
 
 
+//image Validation
+//Set The Storage Engine
+const storage = multer.diskStorage({
+destination: './public/uploads/',
+filename: function(req, file, cb){
+ cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+
+}
+});
+//Init Upload
+const upload = multer({
+storage: storage,
+limits:{fileSize: 1000000},
+fileFilter: function(req, file, cb){
+ checkFileType(file, cb);
+}
+}).single('image');
+
+
+//Check File Type
+function checkFileType(file, cb){
+// Allowed ext
+const filetypes = /jpeg|jpg|png|gif/;
+// Check ext
+const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+// Check mime
+const mimetype = filetypes.test(file.mimetype);
+
+if(mimetype && extname){
+ return cb(null,true);
+} else {
+ cb('Error: Images Only!');
+}
+}
+
+//store images 
+var imageData;
+app.post('/upload', (req, res) => {
+	
+	console.log(res.file); 
+	
+upload(req, res, (err) => {
+ if(err){
+   res.send(err);
+       } else {
+   if(req.file == undefined){
+     res.send('Error: No File Selected!');
+      
+   } else {
+ 	  
+ 	     	   	 imageData = req.file;
+ 		    	 //console.log("Only File saved",req.file);
+ 		    	 res.send(201);        
+   }
+  
+ }
+});
+});
+
+
 app.post('/sendToDB',function(req,res){ 
+	 var data = {
+		  textFeild : req.body,
+		  image:imageData
+	 };
+	 //console.log(data);
 	  
-    db.storeImageData(req.body,function(err,result){
-            //console.log(result);
+    db.storeImageData(data,function(err,result){
+            console.log(result.statusCode);
             res.send(result);    
     });
 
