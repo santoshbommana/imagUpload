@@ -18,17 +18,19 @@ module.exports={
      
                     
 	storeImageData:function (storeData,callback) {
+		  
+		 //console.log(storeData)
 		   
-		   if(storeData.type == "specialImages"){
+		   if(storeData.textFeild.type == "specialImages"){
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_HOME_PAGE_COLLECTION;
 			   }
-		   else if (storeData.type == "allImages"){
+		   else if (storeData.textFeild.type == "allImages"){
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_ALL_IMAGES_COLLECTION;
 			   
 		   }
-		   else if(storeData.type == "contact"){
+		   else if(storeData.textFeild.type == "contact"){
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;   
 		   }
@@ -104,7 +106,7 @@ function createNewDocument(data, dataBase,collection, callback) {
 		    	 callback(null, message);
 		    	 } else{
 		    		message =  "1 document inserted " + dataBase + collection;
-		 		    
+		 		    //console.log(message);
 		 		     if( res.result.ok == 1){
 		 		    	    //console.log("inside if ");
 		 		    	 res ={

@@ -147,19 +147,19 @@
         <!-- Carousel Inner -->
         <div class="carousel-inner h-100">
 
-            <div class="carousel-item h-100 bg-img active" style="background-image: url({{data[0].image}});">
+            <div class="carousel-item h-100 bg-img active" style="background-image: url({{data[0].image.path}});">
                 <div class="carousel-content h-100">
                     <div class="slide-text">
-                        <span>{{data[0].title}}</span>
-                        <h2> {{data[0].discription}}</h2>
+                        <span>{{data[0].textFeild.title}}</span>
+                       
                     </div>
                 </div>
             </div>
-            <div ng-repeat="x in data track by $index" ng-if="$index !== 0"class="carousel-item h-100 bg-img" style="background-image: url({{x.image}});">
+            <div ng-repeat="x in data track by $index" ng-if="$index !== 0"class="carousel-item h-100 bg-img" style="background-image: url({{x.imagePath}});">
                 <div class="carousel-content h-100">
                     <div class="slide-text">
-                        <span>{{x.title}}</span>
-                        <h2> {{x.discription}}</h2>
+                        <span>{{x.textFeild.title}}</span>
+                        
                     </div>
                 </div>
             </div>
@@ -167,28 +167,11 @@
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
-            <!-- <li data-target="#welcomeSlider" data-slide-to="0" class="active bg-img" style="background-image: url({{data[0].image}});"></li> -->
-            <li ng-repeat="x in data track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.image}});"></li>
+              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imagePath}});"></li>
         </ol>
     </div>
 </section>
-    <!-- <section class="welcome-area" style="background-image: url(img/bg-img/4.jpg);">
-     
-        <div class="row" style="padding-top: 130px;">
-            <div style="margin-top: 5px;" class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="x in data track by $index" ng-click="onSelectImage(x)">
-                <div class="hovereffect">
-                    <img class="img-responsive" src="{{x.image}}" alt="{{x.tags}}" 
-                    style="width: 360px;height: 230px;">
-                    <div class="overlay">
-                       <h2>{{x.title}}</h2>
-                       <a class="info">{{x.discription}}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </section> -->
-
+    
     <!-- ***** Welcome Area End ***** -->
 
     <!-- ***** Contact Area Start ***** -->
