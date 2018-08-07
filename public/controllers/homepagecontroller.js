@@ -12,7 +12,11 @@ mainapp.controller(
                                   
 							    
 							 for(var i = 0;i<res.body.length;i++){
-						     $scope.imagePath.push(res.body[i].image.path.slice(6));
+								  var data ={
+										  imageDes:res.body[i].image.path.slice(6),
+										  title:res.body[i].textFeild.title
+								  }
+						     $scope.imagePath.push(data);
 						     console.log($scope.imagePath);
 							 }
 							 

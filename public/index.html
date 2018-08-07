@@ -147,18 +147,19 @@
         <!-- Carousel Inner -->
         <div class="carousel-inner h-100">
 
-            <div class="carousel-item h-100 bg-img active" style="background-image: url({{data[0].image.path}});">
+            <div class="carousel-item h-100 bg-img active" style="background-image: url({{imagePath[0].imageDes}});">
                 <div class="carousel-content h-100">
                     <div class="slide-text">
                         <span>{{data[0].textFeild.title}}</span>
+                       <!--  <img src="{{imagePath[2]}}"> -->
                        
                     </div>
                 </div>
             </div>
-            <div ng-repeat="x in data track by $index" ng-if="$index !== 0"class="carousel-item h-100 bg-img" style="background-image: url({{x.imagePath}});">
+            <div ng-repeat="x in imagePath track by $index" ng-if="$index !== 0"class="carousel-item h-100 bg-img" style="background-image: url({{x.imageDes}});">
                 <div class="carousel-content h-100">
                     <div class="slide-text">
-                        <span>{{x.textFeild.title}}</span>
+                        <span>{{x.title}}</span>
                         
                     </div>
                 </div>
@@ -167,7 +168,7 @@
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
-              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imagePath}});"></li>
+              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imageDes}});"></li>
         </ol>
     </div>
 </section>
