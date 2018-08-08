@@ -5,7 +5,7 @@ var mongodb = require('mongodb')
 var MongoClient = mongodb.MongoClient;
 
 var DB_HOST = "mongodb://127.0.0.1:27017/",
-    DB_NAME ="studio",
+    DB_NAME ="studioTest",
     DB_HOME_PAGE_COLLECTION ="studioImages",
     DB_ALL_IMAGES_COLLECTION ="allImages",
     DB_BLOG_COLLECTION = 'blog',
