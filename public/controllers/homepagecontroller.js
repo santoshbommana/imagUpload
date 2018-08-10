@@ -79,11 +79,28 @@ mainapp.controller(
                                      
 									// index is the home page
 									loadData();
+									$scope.data =[];
 									function loadData() {
 										$http.get('/getBlogDb').success(function(res) {
 
 											console.log("res", res.body);
-											$scope.data = res.body;
+											
+
+											 for (var i =0;i<res.body.length;i++ ){
+                                                       var convertedPath = res.body[i].image.path.slice(6);
+                                                       var dataDis ={
+									                         image: convertedPath.replace(/\\/g, '/'),
+									                         title:res.body[i].textFeild.title,
+									                         discription:res.body[i].textFeild.discription,
+									                         date:res.body[i].textFeild.date,
+									                         writtenBy:res.body[i].textFeild.writenBy
+							                                }
+                                                       
+                                                     $scope.data.push(dataDis);
+                                                       
+                                                        
+											 }
+											   
 
 										}).error(function(err) {
 

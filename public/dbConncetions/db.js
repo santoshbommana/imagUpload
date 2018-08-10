@@ -5,7 +5,7 @@ var mongodb = require('mongodb')
 var MongoClient = mongodb.MongoClient;
 
 var DB_HOST = "mongodb://127.0.0.1:27017/",
-    DB_NAME ="studioTest",
+    DB_NAME ="studio",
     DB_HOME_PAGE_COLLECTION ="studioImages",
     DB_ALL_IMAGES_COLLECTION ="allImages",
     DB_BLOG_COLLECTION = 'blog',
@@ -19,9 +19,13 @@ module.exports={
                     
 	storeImageData:function (storeData,callback) {
 		  
-		 //console.log(storeData)
-		   
-		   if(storeData.textFeild.type == "specialImages"){
+		//console.log(storeData)
+
+		   if(storeData.type == "contact"){
+			   DATA = storeData;
+			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;   
+		   }
+		   else if(storeData.textFeild.type == "specialImages"){
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_HOME_PAGE_COLLECTION;
 			   }
@@ -29,11 +33,7 @@ module.exports={
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_ALL_IMAGES_COLLECTION;
 			   
-		   }
-		   else if(storeData.textFeild.type == "contact"){
-			   DATA = storeData;
-			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;   
-		   }
+		   } 
 		   else{
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_BLOG_COLLECTION;
