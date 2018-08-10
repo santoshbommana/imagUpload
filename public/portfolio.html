@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="studio">
 
 <head>
     <meta charset="UTF-8">
@@ -20,10 +20,24 @@
 
     <!-- Responsive CSS -->
     <link href="css/responsive.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
+  <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
+
+
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+
+
+      <!-- APP controllers -->
+  <script src="/controllers/appcontroller.js"></script>
+  <script src="/controllers/homepagecontroller.js"></script>
 
 </head>
 
-<body>
+<body ng-controller = "AllImagePageController">
     <!-- Preloader -->
     <div id="preloader">
         <div class="showbox">
@@ -114,8 +128,28 @@
     <!-- Social Sidebar Area End -->
 
     <!-- Project Area Start -->
-    <div class="gallery_area clearfix">
-        <div class="container-fluid clearfix">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content" style="margin-top: 50px;">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{displaydata.title}}</h4>
+              <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <img src="{{displaydata.imageDes}}">
+            </div>
+            <div align="left">
+              <h5 class="modal-title" style="padding: 5px 10px;">{{displaydata.discription}}</h5>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    <div class="gallery_area clearfix" style="height: 300px;">
+        <div class="container-fluid clearfix" >
             <div class="gallery_menu">
                 <div class="portfolio-menu">
                     <button class="active btn" type="button" data-filter="*">All</button>
@@ -127,112 +161,25 @@
                 </div>
             </div>
 
-            <div class="row portfolio-column">
+            <div class="row portfolio-column" style="margin-top: -30px;">
 
                 <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits life">
-                    <img src="img/bg-img/p1.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p1.jpg"><i class="fa fa-eye"></i></a>
+                <div class="row" >
+                    <div  ng-repeat="x in imagePath track by $index" class="col-md-4">
+                      <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
                     </div>
                 </div>
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
-                    <img src="img/bg-img/p2.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p2.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
+              
 
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="img/bg-img/p3.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p3.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings life">
-                    <img src="img/bg-img/p4.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p4.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
-                    <img src="img/bg-img/p5.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p5.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="img/bg-img/p6.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p6.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio">
-                    <img src="img/bg-img/p7.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p7.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
-                    <img src="img/bg-img/p8.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p8.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
-                    <img src="img/bg-img/p9.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p9.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
-                    <img src="img/bg-img/p10.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p10.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
-                    <img src="img/bg-img/p11.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p11.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
-                    <img src="img/bg-img/p12.jpg" alt="">
-                    <div class="hover_overlay">
-                        <a class="gallery_img" href="img/bg-img/p12.jpg"><i class="fa fa-eye"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12 text-center mt-70">
                     <a href="#" class="btn studio-btn"><img src="img/core-img/logo-icon.png" alt=""> Load More</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
+</div>
     <!-- Project Area End -->
 
     <!-- Footer Area Start -->
@@ -264,7 +211,7 @@
     <!-- Footer Area End -->
 
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-<p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->

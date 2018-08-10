@@ -11,7 +11,10 @@
     <!-- google seo verification tag -->
     <meta name="google-site-verification" content="" />
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
@@ -42,11 +45,44 @@
     <link href="css/responsive.css" rel="stylesheet">
 
 </head>
+<style>
+  img {
+    cursor: zoom-in;
+}
+</style>
 
 <body ng-controller = "AllImagePageController">
 
-
-                  <section class="welcome-area"  >
+  
+    
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content" style="margin-top: 150px;">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{displaydata.title}}</h4>
+              <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <img src="{{displaydata.imageDes}}">
+            </div>
+            <div align="left">
+              <h5 class="modal-title" style="padding: 5px 10px;">{{displaydata.discription}}</h5>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    <div class="welcome-area" style="margin: 15px;">
+        <div class="row">
+            <div  ng-repeat="x in imagePath track by $index" class="col-md-4">
+              <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
+            </div>
+        </div>    
+    </div>
+                  <!-- <section class="welcome-area"  >
                 <span ng-repeat="x in data track by $index"  >
                       
               
@@ -56,8 +92,17 @@
                          
               </span>
                
-        </section>
+        </section> -->
                 
                        
 </body>
+
+<script>
+  $(function() {
+    	$('img').on('click', function() {
+			$('.enlargeImageModalSource').attr('src', $(this).attr('src'));
+			$('#enlargeImageModal').modal('show');
+		});
+});
+</script>
 </html>
