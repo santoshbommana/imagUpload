@@ -45,19 +45,31 @@ mainapp.controller(
 		'AllImagePageController',
 		[ '$scope', '$global', '$location', '$http', '$filter', '$window',
 				function($scope, $global, $location, $http, $filter, $window) {
-                         
+					$scope.imagePath = [];
 					// index is the home page
 					loadData();
 					function loadData() {
 						$http.get('/allImagesDb').success(function(res) {
+							for(var i = 0;i<res.body.length;i++){
+								var convertedPath = res.body[i].image.path.slice(6)
 
-							console.log("res", res.body);
+							var data ={
+									imageDes: convertedPath.replace(/\\/g, '/'),
+									title:res.body[i].textFeild.title,
+									discription:res.body[i].textFeild.discription
+							}
+					   $scope.imagePath.push(data);
+					   console.log($scope.imagePath);
+					   }
 							$scope.data = res.body;
 
 						}).error(function(err) {
 
 						});
 					};
+					$scope.onImageClick= function(x){
+						$scope.displaydata = x;
+					}
 
 				}]).controller(
 						'blogPageController',

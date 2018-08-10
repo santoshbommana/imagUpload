@@ -152,7 +152,6 @@
                 <div class="carousel-content h-100">
                     <div class="slide-text">
                         <span>{{data[0].textFeild.title}}</span>
-                       <img src="/uploads/image-1533731303554.jpg"/>
                        
                     </div>
                 </div>
@@ -169,7 +168,7 @@
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
-              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imageDes}});"></li>
+              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imageDes}});" ng-click="onSelectImage(x)"></li>
         </ol>
     </div>
 </section>

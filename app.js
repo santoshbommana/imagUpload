@@ -175,10 +175,8 @@ app.listen(80, '202.53.87.46', function() {
   console.log("server starting on " + appEnv.url);
 });*/
 
-
-
-app.set('port',80);
-app.set('host','202.53.87.46');
+app.set('port',3000);
+app.set('host','localhost');
 
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('host') + ':' + app.get('port'));
