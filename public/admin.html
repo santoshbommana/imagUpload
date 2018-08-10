@@ -36,16 +36,19 @@
 <body ng-app="admin" ng-controller="adminController">
 
 	<script>
-		 $(document).ready(function(){
-    $('select').formSelect();
-  });
+		 
+
 		var app = angular.module("admin", [ 'ngTagsInput' ]);
 		app
 				.controller(
 						"adminController",
-						function($scope, $http, $window) {
+						function($scope, $http, $window,$timeout) {
 
 							// image code 
+
+							$timeout(function() {
+								  $('select').formSelect();
+							}, 10);
 
 							$scope.imageSrc = "";
 							$scope.loginShow = true;

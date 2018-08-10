@@ -57,7 +57,7 @@ filename: function(req, file, cb){
 //Init Upload
 const upload = multer({
 storage: storage,
-limits:{fileSize: 1000000},
+/*limits:{fileSize: 1000000},*/
 fileFilter: function(req, file, cb){
  checkFileType(file, cb);
 }
@@ -84,7 +84,7 @@ if(mimetype && extname){
 var imageData;
 app.post('/upload', (req, res) => {
 	
-	console.log(res.file); 
+	//console.log(res.file); 
 	
 upload(req, res, (err) => {
  if(err){
@@ -175,8 +175,11 @@ app.listen(80, '202.53.87.46', function() {
   console.log("server starting on " + appEnv.url);
 });*/
 
-app.set('port',3000);
-app.set('host','localhost');
+//app.set('port',3000);
+//app.set('host','localhost');
+
+app.set('port',80);
+app.set('host','202.53.87.43');
 
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('host') + ':' + app.get('port'));
