@@ -553,13 +553,13 @@ img {
 /* :: 5.0 Sidebar Area CSS */
 
 .social-sidebar-area {
-    width: 120px;
-    height: 72%;
+    width: 100px;
+    height: 67%;
     background-color: transparent;
-    position: fixed;
+    position: absolute;
     bottom: 100px;
     left: 0;
-    z-index: 100;
+    z-index: 80;
     overflow: hidden;
 }
 
@@ -570,7 +570,7 @@ img {
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
     position: absolute;
-    bottom: 270px;
+    bottom: 200px;
     left: -110px;
     z-index: 10;
     -webkit-box-pack: center;
@@ -596,14 +596,14 @@ img {
 }
 
 .social-info-area a i {
-    font-size: 12px;
+    font-size: 5px;
     color: #9f9f9f;
     margin-right: 5px;
 }
 
 .message-box > a {
-    width: 120px;
-    height: 100px;
+    width: 100px;
+    height: 50px;
     position: absolute;
     left: 0;
     bottom: 0;
