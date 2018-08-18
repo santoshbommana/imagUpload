@@ -167,20 +167,13 @@ app.post("/login",function(req,res){
     
 
 });
-/*
-// start server on the specified port and binding host
-app.listen(80, '202.53.87.46', function() {
- // app.listen(3000, 'localhost', function() { // test locally
-  // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});*/
-
-//app.set('port',3000);
-//app.set('host','localhost');
 
 app.set('port',80);
 app.set('host','202.53.87.43');
 
+/*app.set('port',3000);
+app.set('host','localhost');
+*/
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('host') + ':' + app.get('port'));
 });
