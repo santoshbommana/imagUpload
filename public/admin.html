@@ -95,6 +95,8 @@
 								$scope.allImages = false;
 								$scope.blog = false;
 								$scope.contact = false;
+								reset();
+
 							};
 							$scope.allImagesFun = function() {
 
@@ -103,6 +105,7 @@
 								$scope.allImages = true;
 								$scope.blog = false;
 								$scope.contact = false;
+								reset();
 
 							};
 							$scope.blogFun = function() {
@@ -111,6 +114,7 @@
 								$scope.allImages = false;
 								$scope.blog = true;
 								$scope.contact = false;
+								reset();
 
 							};
 							$scope.contactFun = function() {
@@ -119,6 +123,7 @@
 								$scope.allImages = false;
 								$scope.blog = false;
 								$scope.contact = true;
+								reset();
 
 								$http
 										.get("/getContactDb")
@@ -375,12 +380,12 @@
 		<form ng-submit="addItem()" class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
-					<label for="text">Title:</label> 
+					<label for="text">Title:<span style="color: red">*</span></label> 
 					<input type="text"
 						ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
 				<div class="input-field col s6">
-					<label for="text">Description:</label> <input type="text"
+					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
 				<div class="input-field col s6">
@@ -391,7 +396,7 @@
 				<div class="input-field col s6">
 					<div class="file-field input-field">
 						<div class="btn waves-effect grey">
-							<lable>Special Picture</lable>
+							<lable>Special Picture<span style="color: red">*</span></lable>
 							<input name="myImage" type="file" file-model="specialpic"
 								id="photo" required>
 						</div>
@@ -423,11 +428,11 @@
 				
 				
 				<div class="input-field col s6">
-					<label for="text">Title:</label> <input type="text"
+					<label for="text">Title:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
 				<div class="input-field col s6">
-					<label for="text">Description:</label> <input type="text"
+					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
 				<div class="input-field col s6">
@@ -442,9 +447,9 @@
 							<input name="myImage" type="file" file-model="allImages"
 								id="photo" required>
 						</div>
-						<div class="file-path-wrapper">
+					<!-- 	<div class="file-path-wrapper">
 							<input class="file-path validate" type="text">
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -459,7 +464,7 @@
 		<form ng-submit="addBlog()" class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
-					<label for="text">Title:</label> <input type="text"
+					<label for="text">Title:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
 				<div class="input-field col s6">
@@ -469,21 +474,21 @@
 				<div class="input-field col s6">
 					<div class="file-field input-field">
 						<div class="btn waves-effect grey">
-							<lable>Blog Picture</lable>
+							<lable>Blog Picture <span style="color: red">*</span></lable>
 							<input name="myImage" type="file" file-model="blogPic" id="photo"
 								required>
 						</div>
-						<div class="file-path-wrapper">
+						<!-- <div class="file-path-wrapper">
 							<input class="file-path validate" type="text">
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="input-field col s6">
-
+                     <span style="color: red">*</span>
 					<input type="date" ng-model="date" requried>
 				</div>
 				<div class="input-field col s6">
-					<label for="text"> Writen By:</label> <input type="text"
+					<label for="text"> Writen By:<span style="color: red">*</span></label> <input type="text"
 						ng-model="writenBy" requried>
 				</div>
 			</div>
