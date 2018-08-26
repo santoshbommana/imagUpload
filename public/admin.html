@@ -193,6 +193,19 @@
 									imageUpload(fd);
 							};
 							function imageUpload(fd) {
+
+                         // console.log("allImages", $scope.allTitels)
+                                
+
+                                     var a = $scope.allTitels.lastIndexOf($scope.titleData);
+                                             //alert(a);
+                              
+
+                                
+                              if(!($scope.titleData === -1 )){
+                                    $scope.message =" Image & title already exits in database."
+                              }else{
+
 								$http.post("/upload", fd, {
 									transformRequest : angular.identity,
 									headers : {
@@ -211,12 +224,10 @@
 								
 
 							}
+						}
 
 							function sendDataTODb(data) {
-
-                              if($scope.titleData === ){
-                                    $scope.message =" Image & title already exits in database."
-                              }else{
+								
 
 
 
@@ -237,29 +248,48 @@
 												}).error(function(err) {
 											console.log(err)
 										});
-								}
+								
 
 							};
-							titelDataValidation();
+							titelDataValidation() ;
 					function titelDataValidation() {
+                         
+                          
 
-						$http.post('/titleValidation').success(function(res) {
-							for(var i = 0;i<res.body.length;i++){
-								var convertedPath = res.body[i].image.path.slice(6)
+						 $scope.allTitels=[];
 
-							var data ={
-									imageDes: convertedPath.replace(/\\/g, '/'),
-									title:res.body[i].textFeild.title,
-									discription:res.body[i].textFeild.discription
+						$http.get('/getAllRecords').success(function(res) {
+							for (var i =0;i<res.body.length;i++){
+								//console.log("One",res.body[i].textFeild.title);
+                                 $scope.allTitels.push(res.body[i].textFeild.title);     
 							}
-					   $scope.imagePath.push(data);
-					   console.log($scope.imagePath);
-					   }
-							$scope.data = res.body;
+					                     
 
 						}).error(function(err) {
 
 						});
+						$http.get('/allImagesDb').success(function(res) {
+					
+                                           for (var i =0;i<res.body.length;i++){
+								//console.log("One",res.body[i].textFeild.title);
+                                 $scope.allTitels.push(res.body[i].textFeild.title);     
+							}
+
+						}).error(function(err) {
+
+						});
+						$http.get('/getBlogDb').success(function(res) {
+							 for (var i =0;i<res.body.length;i++){
+								//console.log("One",res.body[i].textFeild.title);
+                                 $scope.allTitels.push(res.body[i].textFeild.title);     
+							}
+
+					//console.log("allImages", $scope.allTitels)
+
+						}).error(function(err) {
+
+						});
+
 					};
 							
 							function reset() {
