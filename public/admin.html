@@ -322,6 +322,13 @@
 									}
 								}
 							};
+							 $scope.select = {
+            value: "Chose your Choice",
+            choices: ["1", "2", "3", "4"]
+        };
+        $scope.Onchange = function(val){
+            console.log(val);
+        }
 
 						}).directive('fileModel',
 								[ '$parse', function($parse) {
@@ -415,15 +422,15 @@
 	<div ng-show="allImages" class="container">
 		<h2>Upload All Image</h2>
 		<form ng-submit="addAllImage()" class="col s12">
-			<div class="input-field col s6">
-				<select>
-				  <option value=""  selected>Choose your option</option>
-				  <option value="1">Option 1</option>
-				  <option value="2">Option 2</option>
-				  <option value="3">Option 3</option>
-				</select>
-				<label>Materialize Select</label>
-			  </div>
+		   <div class="section col s6">
+                <div input-field>
+                    <lable>chose option</lable>
+                    <select ng-model="select.value" ng-change="Onchange(select.value)" material-select>
+
+                        <option ng-repeat="value in select.choices">{{value}}</option>
+                    </select>
+                </div>
+            </div>
 			<div class="row">
 				
 				

@@ -59,7 +59,7 @@ mainapp.controller(
 									discription:res.body[i].textFeild.discription
 							}
 					   $scope.imagePath.push(data);
-					   console.log($scope.imagePath);
+					  // console.log($scope.imagePath);
 					   }
 							$scope.data = res.body;
 
