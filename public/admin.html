@@ -213,6 +213,13 @@
 							}
 
 							function sendDataTODb(data) {
+
+                              if($scope.titleData === ){
+                                    $scope.message =" Image & title already exits in database."
+                              }else{
+
+
+
 								$http
 										.post("/sendToDB", data)
 										.success(
@@ -230,8 +237,30 @@
 												}).error(function(err) {
 											console.log(err)
 										});
+								}
 
 							};
+							titelDataValidation();
+					function titelDataValidation() {
+
+						$http.post('/titleValidation').success(function(res) {
+							for(var i = 0;i<res.body.length;i++){
+								var convertedPath = res.body[i].image.path.slice(6)
+
+							var data ={
+									imageDes: convertedPath.replace(/\\/g, '/'),
+									title:res.body[i].textFeild.title,
+									discription:res.body[i].textFeild.discription
+							}
+					   $scope.imagePath.push(data);
+					   console.log($scope.imagePath);
+					   }
+							$scope.data = res.body;
+
+						}).error(function(err) {
+
+						});
+					};
 							
 							function reset() {
 								$scope.titleData = "";
