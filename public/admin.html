@@ -194,15 +194,15 @@
 							};
 							function imageUpload(fd) {
 
-                         // console.log("allImages", $scope.allTitels)
+                          console.log("allImages", $scope.allTitels)
                                 
 
                                      var a = $scope.allTitels.lastIndexOf($scope.titleData);
-                                             //alert(a);
+                                            console.log(a);
                               
 
-                                
-                              if(!($scope.titleData === -1 )){
+                             
+                              if(!(a === -1 )){
                                     $scope.message =" Image & title already exits in database."
                               }else{
 

@@ -137,22 +137,22 @@
                     <div class="contact-form-area">
                         <form ng-submit="submit()">
                             <div class="row">
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-3">
                                     <input type="text" class="form-control" ng-model="name" name="name" id="name" placeholder="Your Name" ng-change="onSelect()" requried>
                                 </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-3">
                                     <input type="email" class="form-control" ng-model="email" name="email" id="email" placeholder="Your Email" requried>
                                 </div>
-                                  <div class="col-12 col-md-4">
+                                  <div class="col-12 col-md-3">
                                     <input type="number" class="form-control" ng-model="phone" name="phone" id="phone" placeholder="Your Phone" >
                                 </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-3">
                                     <input type="text" class="form-control" ng-model="subject" name="subject" id="subject" placeholder="Subject" requried>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-8">
                                     <textarea name="message" class="form-control"  ng-model="message" id="message" cols="30" rows="10" placeholder="Message" requried ></textarea>
                                 </div>
-                                <div class="col-12 text-center">
+                                  <div style="margin-top: 33px">
                                     <button type="submit" class="btn studio-btn mt-3"><img ng-show="imageloader" src="img/core-img/logo-icon.png" alt=""> Send</button><br>
                                        {{successMessage}}
                                 </div>
