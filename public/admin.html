@@ -374,16 +374,23 @@
 	</div>
 
 	<div class="container" align="center" ng-show="menuButtons">
-		<button type="button" ng-click="specialImages()"
-			class="btn btn-success">Home Page</button>
-		<button type="button" ng-click="allImagesFun()"
-			class="btn btn-primary">All Images</button>
-		<button type="button" ng-click="blogFun()" class="btn btn-danger">Blog</button>
-		<button type="button" ng-click="contactFun()" class="btn btn-warning">Contact</button>
+	<div class="row">
+		<div class="input-field col s3">
+		    <button type="button" ng-click="specialImages()" class="waves-effect waves-light btn">Home</button>
+		</div>
+		<div class="input-field col s3">
+		    <button type="button" ng-click="allImagesFun()" class="waves-effect waves-light btn">P.Folio</button>
+		</div>
+		<div class="input-field col s3">
+		    <button type="button" ng-click="blogFun()" class="waves-effect waves-light btn">Blog</button>
+		</div>
+		<div class="input-field col s3">
+		    <button type="button" ng-click="contactFun()" class="waves-effect waves-light btn">Contact</button>
+    	</div>
 	</div>
 
 	<div ng-show="indexPageShow" class="container">
-		<h2>Upload Special Image</h2>
+		<h2>Special Image</h2>
 		<form ng-submit="addItem()" class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
@@ -391,11 +398,11 @@
 					<input type="text"
 						ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
-				<div class="input-field col s6">
+			<!-- 	<div class="input-field col s6">
 					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">
-				</div>
-				<div class="input-field col s6">
+				</div> -->
+				<div class="input-field col s6" style="margin-top: 23px !important;">
 					<label for="text">Tags:</label>
 					<tags-input ng-model="tags"></tags-input>
 					<button type="button" ng-click="addTag()">Add Tag</button>
@@ -420,9 +427,9 @@
 
 
 	<div ng-show="allImages" class="container">
-		<h2>Upload All Image</h2>
+		<h2> Portfolio</h2>
 		<form ng-submit="addAllImage()" class="col s12">
-		   <div class="section col s6">
+		   <!-- <div class="section col s6">
                 <div input-field>
                     <lable>chose option</lable>
                     <select ng-model="select.value" ng-change="Onchange(select.value)" material-select>
@@ -430,7 +437,7 @@
                         <option ng-repeat="value in select.choices">{{value}}</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
 			<div class="row">
 				
 				
@@ -442,15 +449,15 @@
 					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s6" >
 					<label for="text">Tags:</label>
 					<tags-input ng-model="tags"></tags-input>
 					<button type="button" ng-click="addTag()">Add Tag</button>
 				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s6" style="margin-top: -5px !important;">
 					<div class="file-field input-field">
 						<div class="btn waves-effect grey">
-							<lable>Upload All Image<span style="color: red;">*</span></lable>
+							<lable> Image<span style="color: red;">*</span></lable>
 							<input name="myImage" type="file" file-model="allImages"
 								id="photo" required>
 						</div>
@@ -467,7 +474,7 @@
 	<!-- Blog -->
 
 	<div ng-show="blog" class="container">
-		<h2>Upload Blog</h2>
+		<h2> Blog</h2>
 		<form ng-submit="addBlog()" class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
@@ -475,8 +482,8 @@
 						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
 				<div class="input-field col s6">
-					<label for="text">Description:</label> <input type="text"
-						class="form-control" ng-model="discription">
+					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
+						class="form-control" ng-model="discription"  required>
 				</div>
 				<div class="input-field col s6">
 					<div class="file-field input-field">
@@ -491,10 +498,10 @@
 					</div>
 				</div>
 				<div class="input-field col s6">
-                     <span style="color: red">*</span>
+                    
 					<input type="date" ng-model="date" requried>
 				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s12">
 					<label for="text"> Writen By:<span style="color: red">*</span></label> <input type="text"
 						ng-model="writenBy" requried>
 				</div>
