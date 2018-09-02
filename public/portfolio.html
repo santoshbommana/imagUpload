@@ -157,7 +157,7 @@
             <div class="gallery_menu">
                 <div class="portfolio-menu">
                     <button class="active btn" type="button" data-filter="*">All</button>
-                    <button class="btn" type="button" data-filter=".Nature">Nature</button>
+                    <button class="btn" type="button" data-filter=".Nature" >Nature</button>
                     <button class="btn" type="button" data-filter=".Landscape">Landscape</button>
                     <button class="btn" type="button" data-filter=".Travel">Travel</button>
                     <button class="btn" type="button" data-filter=".Wildlife">Wildlife</button>
@@ -171,8 +171,10 @@
             <div class="row portfolio-column" style="margin-top: -30px;">
 
                 <!-- Single Item -->
+                <!--  -->
                 <div class="row" >
-                    <div  ng-repeat="x in imagePath track by $index" class="col-md-4">
+                    <div  ng-repeat="x in imagePath track by $index" class=" col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{x.imageType}}" >
+                              
                       <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
                     </div>
                 </div>

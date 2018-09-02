@@ -46,6 +46,7 @@ mainapp.controller(
 		[ '$scope', '$global', '$location', '$http', '$filter', '$window',
 				function($scope, $global, $location, $http, $filter, $window) {
 					$scope.imagePath = [];
+					 
 					// index is the home page
 					loadData();
 					function loadData() {
@@ -56,10 +57,11 @@ mainapp.controller(
 							var data ={
 									imageDes: convertedPath.replace(/\\/g, '/'),
 									title:res.body[i].textFeild.title,
-									discription:res.body[i].textFeild.discription
+									discription:res.body[i].textFeild.discription,
+									imageType:res.body[i].textFeild.imageType
 							}
 					   $scope.imagePath.push(data);
-					  // console.log($scope.imagePath);
+					  console.log($scope.imagePath);
 					   }
 							$scope.data = res.body;
 
@@ -69,7 +71,10 @@ mainapp.controller(
 					};
 					$scope.onImageClick= function(x){
 						$scope.displaydata = x;
-					}
+					};
+					$scope.searchPage = function(val){
+                          console.log(val);
+					};
 
 				}]).controller(
 						'blogPageController',

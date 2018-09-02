@@ -36,7 +36,7 @@
     src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
  
 
-<body ng-app="admin" ng-controller="adminController">
+<body ng-app="admin" ng-controller="adminController" background="img/core-img/adminn.jpeg" >
 
 	<script>
 		 
@@ -101,16 +101,7 @@
 								reset();
 
 							};
-							 $scope.select = {
-                                                      value: "Chose your Choice",
-                                                  choices: ["Nature", "Landscape", "ravel", "Wildlife","Macro","portraits","Lifestyle"]
-                                           
-
-        };
-        $scope.Onchange = function(val){
-            console.log(val);
-            $scope.allImagetype = val;
-        }                                     
+							
 							$scope.allImagesFun = function() {
 
 								$scope.message = "";
@@ -180,6 +171,16 @@
 								console.log(fd.append('image',  $scope.specialpic));
 								imageUpload(fd);
 							};
+							 $scope.select = {
+                                               value: "Chose your Choice",
+                                               choices: ["Nature", "Landscape", "Travel", "Wildlife","Macro","portraits","Lifestyle"]
+                                              };
+
+                              $scope.Onchange = function(val){
+           
+                                        $scope.typeOfImage = val;
+                                         console.log(  $scope.typeOfImage);
+                                   }                                     
 							$scope.addAllImage = function() {
 
 								 data = {
@@ -188,7 +189,7 @@
 									discription : $scope.discription,
 									tags : $scope.tagsData,
 									type : "allImages",
-									imageType:$scope.allImagetype
+									imageType:$scope.select.value
 								}
 								 var fd = new FormData();
 									console.log(fd.append('image',  $scope.allImages));
@@ -248,7 +249,7 @@
 							function sendDataTODb(data) {
 								
 
-
+                         console.log(data);
 
 								$http
 										.post("/sendToDB", data)
@@ -267,7 +268,7 @@
 												}).error(function(err) {
 											console.log(err)
 										});
-								
+							
 
 							};
 							titelDataValidation() ;
@@ -444,19 +445,19 @@
 		<form ng-submit="addAllImage()" class="col s12">
 		
 			<div class="row">
-				  <div class=" input-field section col s6">
+				  <div class=" input-field col s6">
              
                     <select ng-model="select.value" ng-change="Onchange(select.value)" material-select>
 
                         <option ng-repeat="value in select.choices">{{value}}</option>
+                    </select>
                
             </div>
-				
-				
-				<div class="input-field col s6">
-					<label for="text">Title:<span style="color: red">*</span></label> <input type="text"
+				<div class="input-field col s6" >
+					<label for="text">Title:<span style="color: red">*</span></label> 
+					<input type="text"
 						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
-				</div>
+				</div> 
 				<div class="input-field col s6">
 					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">

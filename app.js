@@ -169,7 +169,7 @@ app.post("/login",function(req,res){
 });
 
 app.set('port',80);
-app.set('host','202.53.87.43');
+app.set('host','103.72.100.24');
 
 /*app.set('port',3000);
 app.set('host','localhost');

@@ -154,7 +154,7 @@
     }
     .navbar-brand {
         margin-right: 0;
-        max-width: 100px;
+        max-width: 90px;
     }
     .header-search-form form input {
         width: 100%;
@@ -271,7 +271,10 @@
     .blog-area.mt-100,
     .about-me-area.mt-100,
     .contact-area.mt-100 {
-        margin-top: 70px;
+        margin-top: 90px;
+          margin-right: -10px;
+
+
     }
     .contact-core-info {
         width: 200px;
