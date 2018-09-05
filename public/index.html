@@ -17,8 +17,6 @@
     <!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
     <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
-
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 
@@ -49,7 +47,7 @@
     <div id="preloader">
         <div class="showbox">
             <div class="loader">
-                <svg class="circular" viewBox="25 25 50 50">
+                <svg class="0" viewBox="25 25 50 50">
                     <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
                 </svg>
             </div>
@@ -129,10 +127,14 @@
     <div class="social-sidebar-area bg-white">
             <!-- Social Area -->
             <div class="social-info-area">
-                <a href="https://facebook.com/Swetha-Graphy-209559766365597"  target="_blank" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
+                <a href="https://www.facebook.com/swethagraphylive/"  target="_blank" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
+
                 <a href="https://twitter.com/SwethaGraphy"  target="_blank" data-toggle="tooltip" data-placement="right" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i> <span>Twitter</span></a>
-                <a href="https://instagram.com/swethagraphy"  target="_blank" data-toggle="tooltip" data-placement="right" title="instagram"><i class="fa fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a>
+
+                <a href="https://www.instagram.com/swethagraphy/"  target="_blank" data-toggle="tooltip" data-placement="right" title="instagram"><i class="fa fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a>
+
                 <a href="https://youtube.com/channel/UCQ_KGFVuAPZojMniJbBdRdQ" target="_blank" data-toggle="tooltip" data-placement="right" title="youtube"><i class="fa fa-youtube" aria-hidden="true"></i> <span>Youtube</span></a>
+                
                 
             </div>
             <!-- Message Box -->
@@ -167,7 +169,8 @@
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
-              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imageDes}});" ng-click="onSelectImage(x)"></li>
+              <li ng-repeat="x in imagePath track by $index" data-target="#welcomeSlider" data-slide-to="{{$index}}" class="bg-img " style="background-image: url({{x.imageDes}});" ></li>
+              <!-- ng-click="onSelectImage(x)" -->
         </ol>
     </div>
 </section>

@@ -9,36 +9,39 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
+    <!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
+
+
+
+
+<scrip src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+   
 
 <link rel="stylesheet"
-	href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+    href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
 <script
-	src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+    src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+ 
 
-<body ng-app="admin" ng-controller="adminController">
+<body ng-app="admin" ng-controller="adminController" background="img/core-img/adminn.jpeg" >
 
 	<script>
 		 
 
-		var app = angular.module("admin", [ 'ngTagsInput' ]);
+		var app = angular.module("admin", [ 'ngTagsInput','ui.materialize' ]);
 		app
 				.controller(
 						"adminController",
@@ -95,7 +98,10 @@
 								$scope.allImages = false;
 								$scope.blog = false;
 								$scope.contact = false;
+								reset();
+
 							};
+							
 							$scope.allImagesFun = function() {
 
 								$scope.message = "";
@@ -104,6 +110,8 @@
 								$scope.blog = false;
 								$scope.contact = false;
 
+								reset();
+
 							};
 							$scope.blogFun = function() {
 								$scope.message = "";
@@ -111,6 +119,7 @@
 								$scope.allImages = false;
 								$scope.blog = true;
 								$scope.contact = false;
+								reset();
 
 							};
 							$scope.contactFun = function() {
@@ -119,6 +128,7 @@
 								$scope.allImages = false;
 								$scope.blog = false;
 								$scope.contact = true;
+								reset();
 
 								$http
 										.get("/getContactDb")
@@ -161,6 +171,16 @@
 								console.log(fd.append('image',  $scope.specialpic));
 								imageUpload(fd);
 							};
+							 $scope.select = {
+                                               value: "Chose your Choice",
+                                               choices: ["Nature", "Landscape", "Travel", "Wildlife","Macro","portraits","Lifestyle"]
+                                              };
+
+                              $scope.Onchange = function(val){
+           
+                                        $scope.typeOfImage = val;
+                                         console.log(  $scope.typeOfImage);
+                                   }                                     
 							$scope.addAllImage = function() {
 
 								 data = {
@@ -168,8 +188,8 @@
 									title : $scope.titleData,
 									discription : $scope.discription,
 									tags : $scope.tagsData,
-									type : "allImages"
-
+									type : "allImages",
+									imageType:$scope.select.value
 								}
 								 var fd = new FormData();
 									console.log(fd.append('image',  $scope.allImages));
@@ -193,6 +213,19 @@
 									imageUpload(fd);
 							};
 							function imageUpload(fd) {
+
+                          console.log("allImages", $scope.allTitels)
+                                
+
+                                     var a = $scope.allTitels.lastIndexOf($scope.titleData);
+                                            console.log(a);
+                              
+
+                             
+                              if(!(a === -1 )){
+                                    $scope.message =" Image & title already exits in database."
+                              }else{
+
 								$http.post("/upload", fd, {
 									transformRequest : angular.identity,
 									headers : {
@@ -211,8 +244,13 @@
 								
 
 							}
+						}
 
 							function sendDataTODb(data) {
+								
+
+                         console.log(data);
+
 								$http
 										.post("/sendToDB", data)
 										.success(
@@ -230,8 +268,49 @@
 												}).error(function(err) {
 											console.log(err)
 										});
+							
 
 							};
+							titelDataValidation() ;
+					function titelDataValidation() {
+                         
+                          
+
+						 $scope.allTitels=[];
+
+						$http.get('/getAllRecords').success(function(res) {
+							for (var i =0;i<res.body.length;i++){
+								//console.log("One",res.body[i].textFeild.title);
+                                 $scope.allTitels.push(res.body[i].textFeild.title);     
+							}
+					                     
+
+						}).error(function(err) {
+
+						});
+						$http.get('/allImagesDb').success(function(res) {
+					
+                                           for (var i =0;i<res.body.length;i++){
+								//console.log("One",res.body[i].textFeild.title);
+                                 $scope.allTitels.push(res.body[i].textFeild.title);     
+							}
+
+						}).error(function(err) {
+
+						});
+						$http.get('/getBlogDb').success(function(res) {
+							 for (var i =0;i<res.body.length;i++){
+								//console.log("One",res.body[i].textFeild.title);
+                                 $scope.allTitels.push(res.body[i].textFeild.title);     
+							}
+
+					//console.log("allImages", $scope.allTitels)
+
+						}).error(function(err) {
+
+						});
+
+					};
 							
 							function reset() {
 								$scope.titleData = "";
@@ -246,6 +325,8 @@
 								$scope.message = "";
 
 							};
+							
+        
 							// send email 
 							$scope.sendReply = function(id) {
 								for (var i = 0; i < $scope.data.length; i++) {
@@ -258,6 +339,10 @@
 									}
 								}
 							};
+							
+        $scope.Onchange = function(val){
+            console.log(val);
+        }
 
 						}).directive('fileModel',
 								[ '$parse', function($parse) {
@@ -303,28 +388,35 @@
 	</div>
 
 	<div class="container" align="center" ng-show="menuButtons">
-		<button type="button" ng-click="specialImages()"
-			class="btn btn-success">Home Page</button>
-		<button type="button" ng-click="allImagesFun()"
-			class="btn btn-primary">All Images</button>
-		<button type="button" ng-click="blogFun()" class="btn btn-danger">Blog</button>
-		<button type="button" ng-click="contactFun()" class="btn btn-warning">Contact</button>
+	<div class="row">
+		<div class="input-field col s3">
+		    <button type="button" ng-click="specialImages()" class="waves-effect waves-light btn">Home</button>
+		</div>
+		<div class="input-field col s3">
+		    <button type="button" ng-click="allImagesFun()" class="waves-effect waves-light btn">P.Folio</button>
+		</div>
+		<div class="input-field col s3">
+		    <button type="button" ng-click="blogFun()" class="waves-effect waves-light btn">Blog</button>
+		</div>
+		<div class="input-field col s3">
+		    <button type="button" ng-click="contactFun()" class="waves-effect waves-light btn">Contact</button>
+    	</div>
 	</div>
 
 	<div ng-show="indexPageShow" class="container">
-		<h2>Upload Special Image</h2>
+		<h2>Special Image</h2>
 		<form ng-submit="addItem()" class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
-					<label for="text">Title:</label> 
+					<label for="text">Title:<span style="color: red">*</span></label> 
 					<input type="text"
 						ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
-				<div class="input-field col s6">
-					<label for="text">Description:</label> <input type="text"
+			<!-- 	<div class="input-field col s6">
+					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">
-				</div>
-				<div class="input-field col s6">
+				</div> -->
+				<div class="input-field col s6" style="margin-top: 23px !important;">
 					<label for="text">Tags:</label>
 					<tags-input ng-model="tags"></tags-input>
 					<button type="button" ng-click="addTag()">Add Tag</button>
@@ -332,7 +424,7 @@
 				<div class="input-field col s6">
 					<div class="file-field input-field">
 						<div class="btn waves-effect grey">
-							<lable>Special Picture</lable>
+							<lable>Special Picture<span style="color: red">*</span></lable>
 							<input name="myImage" type="file" file-model="specialpic"
 								id="photo" required>
 						</div>
@@ -349,43 +441,42 @@
 
 
 	<div ng-show="allImages" class="container">
-		<h2>Upload All Image</h2>
+		<h2> Portfolio</h2>
 		<form ng-submit="addAllImage()" class="col s12">
-			<div class="input-field col s6">
-				<select>
-				  <option value=""  selected>Choose your option</option>
-				  <option value="1">Option 1</option>
-				  <option value="2">Option 2</option>
-				  <option value="3">Option 3</option>
-				</select>
-				<label>Materialize Select</label>
-			  </div>
+		
 			<div class="row">
-				
-				
-				<div class="input-field col s6">
-					<label for="text">Title:</label> <input type="text"
+				  <div class=" input-field col s6">
+             
+                    <select ng-model="select.value" ng-change="Onchange(select.value)" material-select>
+
+                        <option ng-repeat="value in select.choices">{{value}}</option>
+                    </select>
+               
+            </div>
+				<div class="input-field col s6" >
+					<label for="text">Title:<span style="color: red">*</span></label> 
+					<input type="text"
 						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
-				</div>
+				</div> 
 				<div class="input-field col s6">
-					<label for="text">Description:</label> <input type="text"
+					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="discription">
 				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s6" >
 					<label for="text">Tags:</label>
 					<tags-input ng-model="tags"></tags-input>
 					<button type="button" ng-click="addTag()">Add Tag</button>
 				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s6" style="margin-top: -5px !important;">
 					<div class="file-field input-field">
 						<div class="btn waves-effect grey">
-							<lable>Upload All Image<span style="color: red;">*</span></lable>
+							<lable> Image<span style="color: red;">*</span></lable>
 							<input name="myImage" type="file" file-model="allImages"
 								id="photo" required>
 						</div>
-						<div class="file-path-wrapper">
+					<!-- 	<div class="file-path-wrapper">
 							<input class="file-path validate" type="text">
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -396,35 +487,35 @@
 	<!-- Blog -->
 
 	<div ng-show="blog" class="container">
-		<h2>Upload Blog</h2>
+		<h2> Blog</h2>
 		<form ng-submit="addBlog()" class="col s12">
 			<div class="row">
 				<div class="input-field col s6">
-					<label for="text">Title:</label> <input type="text"
+					<label for="text">Title:<span style="color: red">*</span></label> <input type="text"
 						class="form-control" ng-model="titleData" ng-chagne="onSelect()" required>
 				</div>
 				<div class="input-field col s6">
-					<label for="text">Description:</label> <input type="text"
-						class="form-control" ng-model="discription">
+					<label for="text">Description:<span style="color: red">*</span></label> <input type="text"
+						class="form-control" ng-model="discription"  required>
 				</div>
 				<div class="input-field col s6">
 					<div class="file-field input-field">
 						<div class="btn waves-effect grey">
-							<lable>Blog Picture</lable>
+							<lable>Blog Picture <span style="color: red">*</span></lable>
 							<input name="myImage" type="file" file-model="blogPic" id="photo"
 								required>
 						</div>
-						<div class="file-path-wrapper">
+						<!-- <div class="file-path-wrapper">
 							<input class="file-path validate" type="text">
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="input-field col s6">
-
+                    
 					<input type="date" ng-model="date" requried>
 				</div>
-				<div class="input-field col s6">
-					<label for="text"> Writen By:</label> <input type="text"
+				<div class="input-field col s12">
+					<label for="text"> Writen By:<span style="color: red">*</span></label> <input type="text"
 						ng-model="writenBy" requried>
 				</div>
 			</div>

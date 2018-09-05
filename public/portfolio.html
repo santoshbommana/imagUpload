@@ -96,16 +96,16 @@
                                     </li>
                                 </ul>
                                 <!-- Search Form -->
-                                <div class="header-search-form ml-auto">
+                              <!--   <div class="header-search-form ml-auto">
                                     <form action="#">
                                         <input type="search" class="form-control" placeholder="Input your keyword then press enter..." id="search" name="search">
                                         <input class="d-none" type="submit" value="submit">
                                     </form>
-                                </div>
+                                </div> -->
                                 <!-- Search btn -->
-                                <div id="searchbtn">
+                               <!--  <div id="searchbtn">
                                     <img src="img/core-img/search.png" alt="">
-                                </div>
+                                </div> -->
                             </div>
                         </nav>
                     </div>
@@ -119,9 +119,9 @@
    <div class="social-sidebar-area bg-white" >
             <!-- Social Area -->
             <div class="social-info-area">
-                <a href="https://facebook.com/Swetha-Graphy-209559766365597" target="_blank" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
+                <a href="https://www.facebook.com/swethagraphylive/" target="_blank" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
                 <a href="https://twitter.com/SwethaGraphy" target="_blank" data-toggle="tooltip" data-placement="right" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i> <span>Twitter</span></a>
-                <a href="https://instagram.com/swethagraphy" target="_blank" data-toggle="tooltip" data-placement="right" title="instagram"><i class="fa fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a>
+                <a href="https://www.instagram.com/swethagraphy/" target="_blank" data-toggle="tooltip" data-placement="right" title="instagram"><i class="fa fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a>
                 <a href="https://youtube.com/channel/UCQ_KGFVuAPZojMniJbBdRdQ" target="_blank" data-toggle="tooltip" data-placement="right" title="youtube"><i class="fa fa-youtube" aria-hidden="true"></i> <span>Youtube</span></a>
             </div>
             <!-- Message Box -->
@@ -157,19 +157,24 @@
             <div class="gallery_menu">
                 <div class="portfolio-menu">
                     <button class="active btn" type="button" data-filter="*">All</button>
-                    <button class="btn" type="button" data-filter=".portraits">Portraits</button>
-                    <button class="btn" type="button" data-filter=".weddings">Weddings</button>
-                    <button class="btn" type="button" data-filter=".studio">Studio</button>
-                    <button class="btn" type="button" data-filter=".fashion">Fashion</button>
-                    <button class="btn" type="button" data-filter=".life">Lifestyle</button>
+                    <button class="btn" type="button" data-filter=".Nature" >Nature</button>
+                    <button class="btn" type="button" data-filter=".Landscape">Landscape</button>
+                    <button class="btn" type="button" data-filter=".Travel">Travel</button>
+                    <button class="btn" type="button" data-filter=".Wildlife">Wildlife</button>
+                    <button class="btn" type="button" data-filter=".Macro">Macro</button>
+                    <button class="btn" type="button" data-filter=".portraits">portraits</button>
+                    <button class="btn" type="button" data-filter=".Lifestyle">Lifestyle</button>  
+
                 </div>
             </div>
 
             <div class="row portfolio-column" style="margin-top: -30px;">
 
                 <!-- Single Item -->
+                <!--  -->
                 <div class="row" >
-                    <div  ng-repeat="x in imagePath track by $index" class="col-md-4">
+                    <div  ng-repeat="x in imagePath track by $index" class=" col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{x.imageType}}" >
+                              
                       <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
                     </div>
                 </div>
