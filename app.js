@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 });
 
 
-// this for image  updalod code not more than 50 MB 
+// this for image  updalod code not more than 50 MB
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
@@ -80,41 +80,41 @@ if(mimetype && extname){
 }
 }
 
-//store images 
+//store images
 var imageData;
 app.post('/upload', (req, res) => {
-	
-	//console.log(res.file); 
-	
+
+	//console.log(res.file);
+
 upload(req, res, (err) => {
  if(err){
    res.send(err);
        } else {
    if(req.file == undefined){
      res.send('Error: No File Selected!');
-      
+
    } else {
- 	  
+
  	     	   	 imageData = req.file;
  		    	 //console.log("Only File saved",req.file);
- 		    	 res.send(201);        
+ 		    	 res.send(201);
    }
-  
+
  }
 });
 });
 
 
-app.post('/sendToDB',function(req,res){ 
+app.post('/sendToDB',function(req,res){
 	 var data = {
 		  textFeild : req.body,
 		  image:imageData
 	 };
 	 //console.log(data);
-	  
+
     db.storeImageData(data,function(err,result){
             console.log(result.statusCode);
-            res.send(result);    
+            res.send(result);
     });
 
 });
@@ -124,14 +124,14 @@ app.get("/getAllRecords",function(req,res){
 
     db.getAllData(function(err,result){
             //console.log(result);
-            res.send(result);       
+            res.send(result);
      });
 });
 app.get("/allImagesDb",function(req,res){
 
     db.getAllImagesRecords(function(err,result){
             //console.log(result);
-            res.send(result);       
+            res.send(result);
      });
 });
 
@@ -139,43 +139,41 @@ app.get("/getBlogDb",function(req,res){
 
     db.getBlogRecords(function(err,result){
             //console.log(result);
-            res.send(result);       
+            res.send(result);
      });
 });
 app.get("/getContactDb",function(req,res){
 
     db.getContactRecords(function(err,result){
             //console.log(result);
-            res.send(result);       
+            res.send(result);
      });
 });
 
 
-app.post('/sendContact',function(req,res){ 
+app.post('/sendContact',function(req,res){
 	   //console.log("req",req.body);
     db.storeImageData(req.body,function(err,result){
             //console.log(result);
-            res.send(result);    
+            res.send(result);
     });
 
 });
 
 
 app.post("/login",function(req,res){
-    
+
      var responseSendBack = (req.body.userName === "swetha" && req.body.password === "admin") ?  res.send(true): res.send(false);
-    
+
 
 });
 
 app.set('port',80);
-app.set('host','103.72.100.24');
+app.set('host','103.72.100.29');
 
-/*app.set('port',3000);
-app.set('host','localhost');
-*/
+// app.set('port',3000);
+// app.set('host','localhost');
+
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('host') + ':' + app.get('port'));
 });
-
-

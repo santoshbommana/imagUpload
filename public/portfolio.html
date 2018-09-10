@@ -28,7 +28,7 @@
   <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
 
 
-     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 
       <!-- APP controllers -->
@@ -134,11 +134,11 @@
     <!-- Project Area Start -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-        
+
           <!-- Modal content-->
           <div class="modal-content" style="margin-top: 50px;">
             <div class="modal-header">
-                <h4 class="modal-title pull-left">{{displaydata.title}}</h4>
+                <h4 class="modal-title pull-left">{{displaydata.title}} </h4>
               <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -146,24 +146,24 @@
             </div>
             <div align="left">
               <h5 class="modal-title" style="padding: 5px 10px;">{{displaydata.discription}}</h5>
-              
+
             </div>
           </div>
-          
+
         </div>
       </div>
     <div class="gallery_area clearfix" style="height: 300px;">
         <div class="container-fluid clearfix" >
             <div class="gallery_menu">
                 <div class="portfolio-menu">
-                    <button class="active btn" type="button" data-filter="*">All</button>
-                    <button class="btn" type="button" data-filter=".Nature" >Nature</button>
-                    <button class="btn" type="button" data-filter=".Landscape">Landscape</button>
-                    <button class="btn" type="button" data-filter=".Travel">Travel</button>
-                    <button class="btn" type="button" data-filter=".Wildlife">Wildlife</button>
-                    <button class="btn" type="button" data-filter=".Macro">Macro</button>
-                    <button class="btn" type="button" data-filter=".portraits">portraits</button>
-                    <button class="btn" type="button" data-filter=".Lifestyle">Lifestyle</button>  
+                    <input class="active btn" type="button" value ="All" data-filter="*" ng-click="imageFilter(0)">
+                    <input class="btn" type="button" value="Nature" ng-click="imageFilter(1)">
+                    <input class="btn" type="button" value="Landscape" ng-click="imageFilter(2)">
+                    <input class="btn" type="button" value="Travel" ng-click="imageFilter(3)">
+                    <input class="btn" type="button" value="Wildlife" ng-click="imageFilter(4)">
+                    <input class="btn" type="button" value="Macro" ng-click="imageFilter(5)">
+                    <input class="btn" type="button" value="portraits" ng-click="imageFilter(5)">
+                    <input class="btn" type="button" value="Lifestyle" ng-click="imageFilter(7)">
 
                 </div>
             </div>
@@ -172,14 +172,21 @@
 
                 <!-- Single Item -->
                 <!--  -->
-                <div class="row" >
+                <div class="row" ng-show="noSelection">
                     <div  ng-repeat="x in imagePath track by $index" class=" col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{x.imageType}}" >
-                              
+                        <a style="display: none">{{x.imageType}}</a>
                       <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
                     </div>
                 </div>
 
-              
+                <div class="row" ng-show="onSelectionImageType">
+                    <div  ng-repeat="x in typeSelection track by $index" class=" col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{x.imageType}}" >
+                        <a style="display: none">{{x.imageType}}</a>
+                      <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
+                    </div>
+                </div>
+
+
 
             <!-- <div class="row">
                 <div class="col-12 text-center mt-70">
@@ -192,7 +199,7 @@
     <!-- Project Area End -->
 
     <!-- Footer Area Start -->
- 
+
     <!-- Footer Area End -->
 
     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
