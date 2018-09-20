@@ -174,15 +174,17 @@
                 <!--  -->
                 <div class="row" ng-show="noSelection">
                     <div  ng-repeat="x in imagePath track by $index" class=" col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{x.imageType}}" >
+                        {{x.title}}
                         <a style="display: none">{{x.imageType}}</a>
-                      <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
+                      <img  src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
                     </div>
                 </div>
 
                 <div class="row" ng-show="onSelectionImageType">
                     <div  ng-repeat="x in typeSelection track by $index" class=" col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item {{x.imageType}}" >
+                         {{x.title}}
                         <a style="display: none">{{x.imageType}}</a>
-                      <img style="width:100%; height:auto;margin-top: 5px;" class="img-thumbnail" src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
+                      <img   src="{{x.imageDes}}" data-toggle="modal" data-target="#myModal" ng-click="onImageClick(x)">
                     </div>
                 </div>
 
