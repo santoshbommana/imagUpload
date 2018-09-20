@@ -47,7 +47,7 @@
     <div id="preloader">
         <div class="showbox">
             <div class="loader">
-                <svg class="0" viewBox="25 25 50 50">
+                <svg class="0" viewBox="25 25 50 50" ng-show="loader">
                     <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
                 </svg>
             </div>
@@ -115,7 +115,7 @@
                                     </form>
                                 </div>
                                 <!-- Search btn -->
-                            
+
                             </div>
                         </nav>
                     </div>
@@ -134,8 +134,8 @@
                 <a href="https://www.instagram.com/swethagraphy/"  target="_blank" data-toggle="tooltip" data-placement="right" title="instagram"><i class="fa fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a>
 
                 <a href="https://youtube.com/channel/UCQ_KGFVuAPZojMniJbBdRdQ" target="_blank" data-toggle="tooltip" data-placement="right" title="youtube"><i class="fa fa-youtube" aria-hidden="true"></i> <span>Youtube</span></a>
-                
-                
+
+
             </div>
             <!-- Message Box -->
             <div class="message-box" >
@@ -147,13 +147,13 @@
     <div class="carousel h-100 slide" data-ride="carousel" id="welcomeSlider">
         <!-- Carousel Inner -->
         <div class="carousel-inner h-100">
-                  
+
 
             <div class="carousel-item h-100 bg-img active" style="background-image: url({{imagePath[0].imageDes}});">
                 <div class="carousel-content h-100">
                     <div class="slide-text">
                         <span>{{data[0].textFeild.title}}</span>
-                       
+
                     </div>
                 </div>
             </div>
@@ -161,11 +161,11 @@
                 <div class="carousel-content h-100">
                     <div class="slide-text">
                         <span>{{x.title}}</span>
-                        
+
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
@@ -174,7 +174,7 @@
         </ol>
     </div>
 </section>
-    
+
     <!-- ***** Welcome Area End ***** -->
 
     <!-- ***** Contact Area Start ***** -->

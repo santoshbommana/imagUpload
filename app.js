@@ -162,10 +162,12 @@ app.post('/sendContact',function(req,res){
 
 
 app.post("/login",function(req,res){
-
      var responseSendBack = (req.body.userName === "swetha" && req.body.password === "admin") ?  res.send(true): res.send(false);
+});
 
-
+// for delete
+app.post("/getAllDataForDelete",function(){
+getAllDbsData:
 });
 
 app.set('port',80);

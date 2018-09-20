@@ -10,20 +10,18 @@ var DB_HOST = "mongodb://127.0.0.1:27017/",
     DB_ALL_IMAGES_COLLECTION ="allImages",
     DB_BLOG_COLLECTION = 'blog',
     DB_CONTACT_COLLECTION ="contact",
-    DATA,SOTRE_COLLECTION;	
-   
+    DATA,SOTRE_COLLECTION;
 
 
 module.exports={
-     
-                    
+
 	storeImageData:function (storeData,callback) {
-		  
+
 		//console.log(storeData)
 
 		   if(storeData.type == "contact"){
 			   DATA = storeData;
-			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;   
+			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;
 		   }
 		   else if(storeData.textFeild.type == "specialImages"){
 			   DATA = storeData;
@@ -32,13 +30,11 @@ module.exports={
 		   else if (storeData.textFeild.type == "allImages"){
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_ALL_IMAGES_COLLECTION;
-			   
-		   } 
+		   }
 		   else{
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_BLOG_COLLECTION;
 		   }
-    
         createNewDocument(DATA, DB_NAME,SOTRE_COLLECTION, function (err, result) {
             if (err) {
                 callback("Failed to create doc  : " + SOTRE_COLLECTION);
@@ -78,7 +74,7 @@ module.exports={
             }
         });
     },
-	
+
     getContactRecords:function (callback) {
         getAllDocsFromDatabase(DB_NAME,DB_CONTACT_COLLECTION, function (err, result) {
             if (err) {
@@ -87,7 +83,7 @@ module.exports={
                 callback(null, result);
             }
         });
-    },
+    }
 
 };
 
@@ -95,12 +91,12 @@ module.exports={
 function createNewDocument(data, dataBase,collection, callback) {
 	let message,res;
 	MongoClient.connect(DB_HOST, function(err, db) {
-		  
+
 		  var dbo = db.db(dataBase);
 		  var myobj = data;
 
 		  dbo.collection(collection).insert(myobj, function(err, res) {
-		    if (err){ 
+		    if (err){
 		    	 throw err;
 		    	 message = "Oops!.. somthing went wrong " + err;
 		    	 callback(null, message);
@@ -115,11 +111,11 @@ function createNewDocument(data, dataBase,collection, callback) {
 		 		    	 }
 		 		    	 callback(null,res);
 		 		     }
-		 	       
-		 	         
+
+
 		    	 };
 		    	 db.close();
-		     }); 
+		     });
 		 });
 
 };
@@ -138,7 +134,7 @@ function getAllDocsFromDatabase(database,collection, callback) {
 			    			  statusMessage:'ok'
 			    	  };
 			    	callback(null ,buildReturnJson(body,res));
-			    	
+
 	             }else{
 	            	 res ={
 	            			  statusCode:404,
@@ -147,7 +143,7 @@ function getAllDocsFromDatabase(database,collection, callback) {
 	            	 //console.log("hited",res);
 	            	 callback(null ,buildReturnJson(body,res));
 	             }
-	            
+
 	            db.close();
 	        });
 		  });
@@ -161,7 +157,3 @@ function buildReturnJson(body, response) {
     };
     return toReturn;
 }
-
-
-
-
