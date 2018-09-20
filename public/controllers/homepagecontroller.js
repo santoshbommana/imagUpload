@@ -7,24 +7,20 @@ mainapp.controller(
 					loadData();
 					function loadData() {
 						   $scope.imagePath = [];
-
+                $scope.loader = true;
 						$http.get('/getAllRecords').success(function(res) {
-
 
 							 for(var i = 0;i<res.body.length;i++){
 							 	     var convertedPath = res.body[i].image.path.slice(6)
-
 								  var data ={
 										  imageDes: convertedPath.replace(/\\/g, '/'),
 										  title:res.body[i].textFeild.title
 								  }
 						     $scope.imagePath.push(data);
-						     console.log($scope.imagePath);
+						     //console.log($scope.imagePath);
+                 $scope.loader = false;
 							 }
-
 							 $scope.data = res.body;
-
-
 						}).error(function(err) {
 
 						});
