@@ -167,14 +167,14 @@ app.post("/login",function(req,res){
 
 // for delete
 app.post("/getAllDataForDelete",function(){
-getAllDbsData:
+//getAllDbsData:
 });
 
-app.set('port',80);
-app.set('host','103.72.100.29');
+// app.set('port',80);
+// app.set('host','103.72.100.29');
 
-// app.set('port',3000);
-// app.set('host','localhost');
+app.set('port',3000);
+app.set('host','localhost');
 
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('host') + ':' + app.get('port'));
