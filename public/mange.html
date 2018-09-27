@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Materialize CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
+<!-- JavaScript for: jQuery, angular, materialize, and angular-materialize. All of which are needed. -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
+<script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+
+
+<body ng-app="admin" ng-controller="manageController">
+
+    <script>
+        var app = angular.module("admin", ['ngTagsInput', 'ui.materialize']);
+        app
+            .controller(
+                "manageController",
+                function ($scope, $http, $window, $timeout) {
+                             
+                          
+                         
+                    $scope.specialImages = function () {
+                        $scope.type = "specialImages";
+                        getData($scope.type);
+                        $scope.message = "";
+                        $scope.fetchedData = [];
+                    };
+                    $scope.allImagesFun = function () {
+                        // nothing but portfolio
+                        $scope.type = "allImages";
+                        getData($scope.type);
+                        $scope.message = "";
+                        $scope.fetchedData = [];
+                    };
+                    $scope.blogFun = function () {
+                        $scope.type = "blog";
+                        getData($scope.type);
+                        $scope.message = "";
+                        $scope.fetchedData = [];
+     
+                    };
+                    function getData(type) {
+                        var manageReq ={
+                            manage:type
+                        }
+                        $http.post('/manageData',manageReq).success(function (res) {
+                            
+                            console.log(res);
+                            if (res.body.length == []) {
+                                $scope.message = "Oops! No Data. ";
+                                $scope.tableData = false;
+                            } else {
+                               
+                                 for(var i = 0;i<res.body.length;i++){
+							 	     var convertedPath = res.body[i].image.path.slice(6);
+								  var data ={
+										  imageDes: convertedPath.replace(/\\/g, '/'),
+                                          title:res.body[i].textFeild.title,
+                                          id:res.body[i]._id,
+                                          type:res.body[i].textFeild.type
+								  }
+                                $scope.fetchedData.push(data);
+                                $scope.tableData = true;
+                                //console.log("array Data",$scope.fetchedData);
+                            }
+                        }
+                        }).error(function (err) {
+                            console.log(err)
+                        });
+                    };
+                    $scope.delete = function(val){
+                      //console.log(val);
+                       var data = {
+                           deleteData:val
+                       }
+                       $http.post('/deleteData',data).success(function(res){
+                        //"Record Deleted successfully"
+                        //console.log(res);
+                        if(res == 'Deleted'){
+                              $scope.message = "record Deleted";
+                              //console.log($scope.type)
+                              getData($scope.type)
+                        }
+                       }).error(function(err){
+
+                       })
+                    };
+                });
+    </script>
+
+    <div class="container" align="center" >
+        {{message}}
+        <div class="row">
+            <div class="input-field col s2">
+                <button type="button" ng-click="specialImages()" class="waves-effect waves-light btn">Home</button>
+            </div>
+            <div class="input-field col s2">
+                <button type="button" ng-click="allImagesFun()" class="waves-effect waves-light btn">P.Folio</button>
+            </div>
+            <div class="input-field col s2">
+                <button type="button" ng-click="blogFun()" class="waves-effect waves-light btn">Blog</button>
+            </div>
+        </div>
+        <div ng-show="tableData">
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td>Image</td>
+                    <td>Delete</td>
+
+                </tr>
+                <tr ng-repeat=" x in fetchedData track by $index">
+                       <td> {{x.title}}</td>
+                       <td> <img src="{{x.imageDes}}"></td>
+                       <td> <button type="button" ng-click="delete(x)">Delete</button></td>
+                </tr>
+            </table>
+            <!-- This is home page images  -->
+                
+
+        </div>
+    </div>
+</body>
+
+</html>
