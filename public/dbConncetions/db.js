@@ -10,15 +10,13 @@ var DB_HOST = "mongodb://127.0.0.1:27017/",
     DB_ALL_IMAGES_COLLECTION ="allImages",
     DB_BLOG_COLLECTION = 'blog',
     DB_CONTACT_COLLECTION ="contact",
-    DATA,SOTRE_COLLECTION;
+    DATA,SOTRE_COLLECTION,DELETE_RECORD;
 
 
 module.exports={
 
 	storeImageData:function (storeData,callback) {
-
 		//console.log(storeData)
-
 		   if(storeData.type == "contact"){
 			   DATA = storeData;
 			   SOTRE_COLLECTION =DB_CONTACT_COLLECTION;
@@ -83,7 +81,38 @@ module.exports={
                 callback(null, result);
             }
         });
-    }
+	},
+	deleteData:function (data,callback) {
+		   if(data.deleteData.type == "specialImages"){	   
+			DELETE_RECORD =DB_HOME_PAGE_COLLECTION;
+			DATA= data;
+			console.log(" Hited specialImages");
+			   }
+		   else if (data.deleteData.type == "allImages"){
+			  
+			DELETE_RECORD =DB_ALL_IMAGES_COLLECTION;
+			DATA= data;
+			console.log(" Hited allImages");
+		   }
+		   else{
+			   
+			DELETE_RECORD =DB_BLOG_COLLECTION;
+			DATA= data;
+			console.log(" Hited BLOG");
+		   }
+        deleteDocument(DATA,DB_NAME,DELETE_RECORD, function (err, result) {
+            if (err) {
+				var errdat={
+					errDataVal:"Failed to delete doc  : " + DELETE_RECORD
+				}
+                callback(null,errDataVal);
+            }
+            else {
+                
+                callback(null, result);
+            }
+        });
+    },
 
 };
 
@@ -111,8 +140,6 @@ function createNewDocument(data, dataBase,collection, callback) {
 		 		    	 }
 		 		    	 callback(null,res);
 		 		     }
-
-
 		    	 };
 		    	 db.close();
 		     });
@@ -148,6 +175,28 @@ function getAllDocsFromDatabase(database,collection, callback) {
 	        });
 		  });
 };
+
+function deleteDocument(data,database,collection, callback){
+	MongoClient.connect(DB_HOST, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(database);
+		var myquery={_id: new mongodb.ObjectID(data.deleteData.id)};
+		dbo.collection(collection).deleteOne(myquery, function(err, body) {
+		  if (err) {
+			  throw err
+			}else{
+				res ={
+					statusCode:204,
+					statusMessage:'Deleted'
+			};
+			//console.log("1 document deleted",res);
+		   callback(null ,buildReturnJson(body,res));
+
+			}
+		db.close();
+		});
+	  });
+}
 
 function buildReturnJson(body, response) {
     var toReturn = {
